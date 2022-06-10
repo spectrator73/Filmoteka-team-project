@@ -28,8 +28,3 @@ export function searchMovies(movie) {
 export function getOneMovieDetails(movieId) {
   return fetchFilms(`${BASE_URL}/movie/${movieId}${KEY}`);
 }
-
-// Приклад застосування
-// document.querySelector('.yourSelector').addEventListener('click', () => {
-//   return searchMovies('batman').then(r => console.log(r));
-// });
