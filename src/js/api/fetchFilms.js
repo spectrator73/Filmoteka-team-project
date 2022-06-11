@@ -14,7 +14,7 @@ async function fetchFilms(url) {
 
 // Посилання на документацію для запиту на список найпопулярніших фільмів на сьогодні для створення колекції на головній сторінці:
 export function fetchTrending() {
-  return fetchFilms(`${BASE_URL}/trending/all/day${KEY}`)
+  return fetchFilms(`${BASE_URL}/trending/movie/day${KEY}`)
     .then(data => data.results)
     .catch(error => console.log(error));
 }
