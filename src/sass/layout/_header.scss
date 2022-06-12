@@ -1,10 +1,10 @@
 .header {
-    width: 100%;
-    position: absolute;
     background-repeat: no-repeat;
     background-size: cover;
     @include mq(mobile-only) {
-            background-image: linear-gradient(to right, rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)), url(/src/images/header-background-mobile@1x.jpg);
+        padding-top: 55px;
+        padding-bottom: 92px;
+        background-image: linear-gradient(to right, rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)), url(/src/images/header-background-mobile@1x.jpg);
         }
     @include mq(tablet) {
         background-image: linear-gradient(to right, rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)), url(/src/images/header-background-mobile@1x.jpg);
@@ -12,9 +12,12 @@
     @include mq(desktop) {
         background-image: linear-gradient(to right, rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)), url(/src/images/header-backgroung-desktop@2x.jpg);
     }
+    @include mq(mobile) {
+        padding-top: 40px;
+        padding-bottom: 80px;
+    }
     }
 .navigation {
-    margin-top: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -72,16 +75,12 @@
 
 .search {
     justify-content: center;
-
     @include mq(mobile) {
         margin-top: 55px;
-        margin-bottom: 92px;
-    }
-        @include mq(mobile-only){
+            }
+     @include mq(mobile-only) {
         margin-top: 40px;
-        margin-bottom: 80px;
-
-    }
+        }
 }
 .search__form {
     position: relative;
@@ -102,6 +101,7 @@
 }
 
 .search__input {
+    color: var(--text-second-color);
     width: 100%;
 }
 
