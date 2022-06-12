@@ -1,5 +1,4 @@
 import * as filmsAPI from './js/api/fetchFilms.js';
-import { filmsPagination } from './js/pagination/filmsPagination.js'
 // Используем как filmsAPI.searchMovies() и прочее
 // Пример
 // document.querySelector('.yourSelector').addEventListener('click', () => {
