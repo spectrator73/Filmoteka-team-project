@@ -1,0 +1,41 @@
+.card-list-image {
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.card-list-title, 
+.card-list-genre,
+.card-list-year, 
+.card-list-vote {
+    font-family: 'Roboto';
+    font-weight: 500;
+    @include font-size(12, 16, );
+}
+
+
+.card-list-title {
+    text-transform: uppercase;
+    color: var(--text-main-color);
+}
+
+.card-list-genre,
+.card-list-year {
+    color: var(--accent-color);
+}
+
+.card-list-year {
+    margin-right: 8px;
+}
+
+.card-list-genre {
+    padding-right: 5px;
+    margin-right: 5px;
+    border-right: 1px solid var(--accent-color);
+}
+
+.card-list-vote {
+    color: var(--text-second-color);
+    background-color: var(--accent-color);
+    padding: 1px 10px 1px 10px;
+    border-radius: 5px;
+}

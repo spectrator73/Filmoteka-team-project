@@ -2,6 +2,7 @@ import * as filmsAPI from './fetchFilms.js';
 import { transformDate } from './transformDate';
 import { transformGenre } from './transformGenre';
 import genresJson from './genres.json';
+import galleryMarkup from '../../templates/films-card.hbs'
 
 const genresList = genresJson['genres'];
 const refs = {
@@ -13,7 +14,7 @@ export const onTrendingFilmsRender = async () => {
     transformDate(filmsData);
     transformGenre(filmsData, genresList);
     console.log('Ready TrendigFilms for cards: ', filmsData);
-    // renderMarkup(filmsData); // !!! Render function awaits films card
+    renderMarkup(filmsData); // !!! Render function awaits films card
 }
 
 function renderMarkup(filmsData) {
