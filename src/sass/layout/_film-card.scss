@@ -1,39 +1,39 @@
-.card-list-image {
+.gallery__image {
     border-radius: 5px;
     margin-bottom: 10px;
 }
 
-.card-list-title, 
-.card-list-genre,
-.card-list-year, 
-.card-list-vote {
+.gallery__title, 
+.gallery__genres,
+.gallery__date, 
+.gallery__vote {
     font-family: 'Roboto';
     font-weight: 500;
     @include font-size(12, 16, );
 }
 
 
-.card-list-title {
+.gallery__title {
     text-transform: uppercase;
     color: var(--text-main-color);
 }
 
-.card-list-genre,
-.card-list-year {
+.gallery__genres,
+.gallery__date {
     color: var(--accent-color);
 }
 
-.card-list-year {
+.gallery__date {
     margin-right: 8px;
 }
 
-.card-list-genre {
+.gallery__genres {
     padding-right: 5px;
     margin-right: 5px;
     border-right: 1px solid var(--accent-color);
 }
 
-.card-list-vote {
+.gallery__vote {
     color: var(--text-second-color);
     background-color: var(--accent-color);
     padding: 1px 10px 1px 10px;
