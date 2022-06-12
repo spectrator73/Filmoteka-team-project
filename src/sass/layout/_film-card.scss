@@ -1,0 +1,41 @@
+.gallery__image {
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.gallery__title, 
+.gallery__genres,
+.gallery__date, 
+.gallery__vote {
+    font-family: 'Roboto';
+    font-weight: 500;
+    @include font-size(12, 16, );
+}
+
+
+.gallery__title {
+    text-transform: uppercase;
+    color: var(--text-main-color);
+}
+
+.gallery__genres,
+.gallery__date {
+    color: var(--accent-color);
+}
+
+.gallery__date {
+    margin-right: 8px;
+}
+
+.gallery__genres {
+    padding-right: 5px;
+    margin-right: 5px;
+    border-right: 1px solid var(--accent-color);
+}
+
+.gallery__vote {
+    color: var(--text-second-color);
+    background-color: var(--accent-color);
+    padding: 1px 10px 1px 10px;
+    border-radius: 5px;
+}

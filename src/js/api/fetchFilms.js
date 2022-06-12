@@ -13,16 +13,16 @@ async function fetchFilms(url) {
 }
 
 // Посилання на документацію для запиту на список найпопулярніших фільмів на сьогодні для створення колекції на головній сторінці:
-export function fetchTrending() {
-  return fetchFilms(`${BASE_URL}/trending/movie/day${KEY}`)
+export function fetchTrending(pageNumber = 1) {
+  return fetchFilms(`${BASE_URL}/trending/movie/day${KEY}&page=${pageNumber}`)
     .then(data => data.results)
     .catch(error => console.log(error));
 }
 // Посилання на документацію для запиту фільму за ключовим словом на головній сторінці:
-export function searchMovies(movie) {
-  return fetchFilms(`${BASE_URL}/search/movie${KEY}&query=${movie}`)
-    .then(data => data.results)
-    .catch(error => console.log(error));
+export function searchMovies(movie, pageNumber) {
+  return fetchFilms(
+    `${BASE_URL}/search/movie${KEY}&query=${movie}&page=${pageNumber}`
+  );
 }
 // Посилання на документацію для запиту повної інформації про кінофільм для сторінки кінофільму:
 export function getOneMovieDetails(movieId) {
