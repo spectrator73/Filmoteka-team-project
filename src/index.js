@@ -5,5 +5,5 @@ import * as filmsAPI from './js/api/fetchFilms.js';
 //   return filmsAPI.searchMovies('batman').then(r => console.log(r));
 // });
 
-import { onTrendingFilmsRender } from './js/api/trendingFilmRender';
-document.addEventListener('DOMContentLoaded', onTrendingFilmsRender);
+import './js/api/trendingFilmRender';
+import './js/api/searchFilmsByNameRender';
