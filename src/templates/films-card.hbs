@@ -1,9 +1,12 @@
 {{#each this}}
     <li class="gallery__item card-list-item">
         <img  class="card-list-image" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="">
-        {{#if original_title}}<h3 class="card-list-title">{{original_title}}</h3>
+        {{#if original_title}}
+        <h3 class="card-list-title">{{original_title}}</h3>
         {{/if}}
-        {{#if original_name}}<h3 class="card-list-title">{{original_name}}</h3>
-        {{/if}}<span class="card-list-genre">{{genres}}</span>{{#if release_date}}<span class="card-list-year">{{release_date}}</span>{{else}}<span class="card-list-year">Soon</span>{{/if}}<span class="card-list-vote">{{vote_average}}</span>
+        {{#if original_name}}
+        <h3 class="card-list-title">{{original_name}}</h3>
+        {{/if}}
+        <span class="card-list-genre">{{genres}}</span>{{#if release_date}}<span class="card-list-year">{{release_date}}</span>{{else}}<span class="card-list-year">Soon</span>{{/if}}<span class="card-list-vote">{{vote_average}}</span>
     </li>
 {{/each}}
