@@ -1,0 +1,121 @@
+.header {
+    width: 100%;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    @include mq(mobile-only) {
+            background-image: linear-gradient(to right, rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)), url(/src/images/header-background-mobile@1x.jpg);
+        }
+    @include mq(tablet) {
+        background-image: linear-gradient(to right, rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)), url(/src/images/header-background-mobile@1x.jpg);
+        }
+    @include mq(desktop) {
+        background-image: linear-gradient(to right, rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)), url(/src/images/header-backgroung-desktop@2x.jpg);
+    }
+    }
+.navigation {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+}
+
+.logo__icon {
+    width: 24px;
+    display: inline-block;
+}
+
+.logo__link {
+    font-family: 'Roboto';
+    font-size: 30px;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text-second-color);
+}
+.logo__link:last-child {
+    margin-left: 10px;
+}
+.logo__link--notmobile {
+    @include mq(mobile-only) {
+        display: none;
+    }
+}
+
+.nav__list {
+    display: flex;
+}
+
+.nav__item:not(:last-child) {
+    margin-right: 40px;
+}
+
+.nav__link {
+    display: block;
+    text-decoration: none;
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--text-second-color);
+     &:hover {
+        color: #d41443;
+    }
+}
+
+.nav__link--default {
+    border-bottom: 3px solid #FF6B08;
+}
+
+.search {
+    justify-content: center;
+
+    @include mq(mobile) {
+        margin-top: 55px;
+        margin-bottom: 92px;
+    }
+        @include mq(mobile-only){
+        margin-top: 40px;
+        margin-bottom: 80px;
+
+    }
+}
+.search__form {
+    position: relative;
+    width: 300px;
+    margin: 0 auto;
+    border-bottom: 0.5px solid #ffffff;
+    @include mq(mobile-only) {
+        width: auto;
+    }
+
+}
+
+.search__input,
+.search__button {
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.search__input {
+    width: 100%;
+}
+
+.search__button {
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+::placeholder {
+    font-family: 'Roboto';
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: var(--text-second-color);
+}
