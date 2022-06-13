@@ -1,121 +1,228 @@
 .header {
-    background-repeat: no-repeat;
-    background-size: cover;
-    @include mq(mobile-only) {
-        padding-top: 55px;
-        padding-bottom: 92px;
-        background-image: linear-gradient(to right, rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)), url(/src/images/header-background-mobile@1x.jpg);
-        }
-    @include mq(tablet) {
-        background-image: linear-gradient(to right, rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)), url(/src/images/header-background-mobile@1x.jpg);
-        }
-    @include mq(desktop) {
-        background-image: linear-gradient(to right, rgba(47, 48, 58, 0.4), rgba(47, 48, 58, 0.4)), url(/src/images/header-backgroung-desktop@2x.jpg);
-    }
-    @include mq(mobile) {
-        padding-top: 40px;
-        padding-bottom: 80px;
-    }
-    }
+  background-repeat: no-repeat;
+  background-size: cover;
+  @include mq(mobile-only) {
+    padding-top: 40px;
+    padding-bottom: 92px;
+    background-image: linear-gradient(
+        to right,
+        rgba(47, 48, 58, 0.4),
+        rgba(47, 48, 58, 0.4)
+      ),
+      url(/src/images/header-background-mobile@1x.jpg);
+  }
+  @include mq(tablet) {
+    background-image: linear-gradient(
+        to right,
+        rgba(47, 48, 58, 0.4),
+        rgba(47, 48, 58, 0.4)
+      ),
+      url(/src/images/header-background-mobile@1x.jpg);
+  }
+  @include mq(desktop) {
+    background-image: linear-gradient(
+        to right,
+        rgba(47, 48, 58, 0.4),
+        rgba(47, 48, 58, 0.4)
+      ),
+      url(/src/images/header-backgroung-desktop@2x.jpg);
+  }
+  @include mq(mobile) {
+    padding-top: 40px;
+    padding-bottom: 80px;
+  }
+}
 .navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
-    display: flex;
+  display: flex;
 }
 
 .logo__icon {
-    width: 24px;
-    display: inline-block;
+  width: 24px;
+  display: inline-block;
 }
 
 .logo__link {
-    font-family: 'Roboto';
-    font-size: 30px;
-    font-weight: 500;
-    text-decoration: none;
-    color: var(--text-second-color);
+  font-family: 'Roboto';
+  font-size: 30px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--text-second-color);
 }
 .logo__link:last-child {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 .logo__link--notmobile {
-    @include mq(mobile-only) {
-        display: none;
-    }
+  @include mq(mobile-only) {
+    display: none;
+  }
 }
 
 .nav__list {
-    display: flex;
+  display: flex;
 }
 
 .nav__item:not(:last-child) {
-    margin-right: 40px;
+  margin-right: 40px;
 }
 
 .nav__link {
-    display: block;
-    text-decoration: none;
-    font-family: 'Roboto';
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 14px;
-    color: var(--text-second-color);
-     &:hover {
-        color: #d41443;
-    }
+  display: block;
+  text-decoration: none;
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--text-second-color);
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    color: #d41443;
+  }
 }
 
 .nav__link--default {
-    border-bottom: 3px solid #FF6B08;
+  border-bottom: 3px solid #ff6b08;
 }
 
 .search {
-    justify-content: center;
-    @include mq(mobile) {
-        margin-top: 55px;
-            }
-     @include mq(mobile-only) {
-        margin-top: 40px;
-        }
+  justify-content: center;
+  @include mq(mobile) {
+    margin-top: 55px;
+  }
+  @include mq(mobile-only) {
+    margin-top: 40px;
+  }
 }
 .search__form {
-    position: relative;
-    width: 300px;
-    margin: 0 auto;
-    border-bottom: 0.5px solid #ffffff;
-    @include mq(mobile-only) {
-        width: auto;
-    }
-
+  position: relative;
+  width: 300px;
+  margin: 0 auto;
+  border-bottom: 0.5px solid #ffffff;
+  @include mq(mobile-only) {
+    width: auto;
+  }
 }
 
 .search__input,
 .search__button {
-    border: none;
-    outline: none;
-    background: transparent;
+  border: none;
+  outline: none;
+  background: transparent;
 }
 
 .search__input {
-    color: var(--text-second-color);
-    width: 100%;
+  color: var(--text-second-color);
+  width: 100%;
 }
 
 .search__button {
-    padding: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
 }
 ::placeholder {
-    font-family: 'Roboto';
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 16px;
-        color: var(--text-second-color);
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--text-second-color);
+}
+.header__library {
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  @include mq(mobile-only) {
+    padding-top: 55px;
+    padding-bottom: 92px;
+    background-image: linear-gradient(
+        to right,
+        rgba(47, 48, 58, 0.4),
+        rgba(47, 48, 58, 0.4)
+      ),
+      url(/src/images/header-library-background-mobile@1x.jpg);
+  }
+
+  @include mq(tablet) {
+    background-image: linear-gradient(
+        to right,
+        rgba(47, 48, 58, 0.4),
+        rgba(47, 48, 58, 0.4)
+      ),
+      url(/src/images//header-library-background-tablet@1x.jpg);
+  }
+
+  @include mq(desktop) {
+    background-image: linear-gradient(
+        to right,
+        rgba(47, 48, 58, 0.4),
+        rgba(47, 48, 58, 0.4)
+      ),
+      url(/src/images/header-library-background-desktop@1x.jpg);
+  }
+
+  @include mq(mobile) {
+    padding-top: 40px;
+    padding-bottom: 60px;
+  }
+}
+
+.library {
+  display: flex;
+  justify-content: center;
+}
+
+.library__button {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  background: none;
+  margin-top: 64px;
+  width: 148px;
+  height: 42px;
+  border-radius: 5px;
+  border: solid 1px;
+  color: var(--text-second-color);
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+
+  @include mq(tablet-only) {
+    width: 152px;
+    height: 44px;
+  }
+
+  @include mq(mobile-only) {
+    width: 130px;
+    height: 44px;
+  }
+
+  &:hover {
+    background-color: #f11d1d;
+  }
+}
+
+.library__button--active {
+  background: #ff6b01;
+  border-radius: 5px;
+  border: none;
+}
+
+.library__button:last-child {
+  margin-left: 15px;
+
+  @include mq(tablet-only) {
+    margin-left: 32px;
+  }
+
+  @include mq(mobile-only) {
+    margin-left: 20px;
+  }
 }
