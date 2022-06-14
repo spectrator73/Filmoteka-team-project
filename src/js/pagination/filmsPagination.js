@@ -57,7 +57,7 @@ async function pageIncrement() {
     return;
   }
   pageNumber += 1;
-  // / movie !== ""
+   // / movie !== ""
   //   ? filmsAPI.searchMovies(movie,pageNumber)
   //   : filmsAPI.fetchTrending(pageNumber);
   const data = await filmsAPI.fetchTrending(pageNumber);
