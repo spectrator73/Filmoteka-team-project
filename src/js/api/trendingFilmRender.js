@@ -1,4 +1,3 @@
-import * as filmsAPI from './fetchFilms';
 import { transformDate } from './transformDate';
 import { transformGenre } from './transformGenre';
 import genresJson from './genres.json';
@@ -8,15 +7,6 @@ const genresList = genresJson['genres'];
 const refs = {
   gallery: document.querySelector('.gallery'),
 };
-
-document.addEventListener('DOMContentLoaded', onTrendingFilmsFirstLoad);
-
-async function onTrendingFilmsFirstLoad() {
-  const filmsData = await filmsAPI.fetchTrending();
-  transformDate(filmsData);
-  transformGenre(filmsData, genresList);
-  renderMarkup(filmsData);
-}
 
 export const onTrendingFilmsRender = filmsData => {
   transformDate(filmsData);
