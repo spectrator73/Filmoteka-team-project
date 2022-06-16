@@ -1,4 +1,7 @@
 import { throttle } from "lodash";
+import SmoothScroll from "smooth-scroll";
+
+const scroll = new SmoothScroll();
 const refs = {
     backToTopBtn: document.querySelector('.js-back-to-top-btn'),
 }
@@ -8,13 +11,12 @@ refs.backToTopBtn.addEventListener('click', handleBackToTop);
 
 function scrollTop() {
     if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        refs.backToTopBtn.style.display = "flex";
+        refs.backToTopBtn.classList.add('top-btn--is-show');
     } else {
-        refs.backToTopBtn.style.display = "none";
+        refs.backToTopBtn.classList.remove('top-btn--is-show');
     };
 }
 
 function handleBackToTop() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
+    scroll.animateScroll(document.body, { speed: 500, easing: 'Linear' });
 }

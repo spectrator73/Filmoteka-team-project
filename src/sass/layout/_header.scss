@@ -40,6 +40,10 @@
 
 .logo {
   display: flex;
+  transition: stroke .1s linear, transform .1s ease-in-out .2s;
+}
+.logo:hover{
+  transform: scale(1.1);
 }
 
 .logo__icon {
@@ -103,9 +107,14 @@
   width: 300px;
   margin: 0 auto;
   border-bottom: 0.5px solid #ffffff;
+  transition: border-bottom .5s linear;
   @include mq(mobile-only) {
     width: auto;
   }
+}
+.search__form:hover,
+.search__form:focus{
+      border-color: #ff6b01;
 }
 
 .search__input,
