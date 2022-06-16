@@ -1,19 +1,20 @@
 :root {
-    --text-main-color: #000000;
-    --text-second-color: #FFFFFF;
-    --text-footer-color: #545454;
-    --text-error-color: #FF001B;
+  --text-main-color: #000000;
+  --text-second-color: #ffffff;
+  --text-footer-color: #545454;
+  --text-error-color: #ff001b;
 
-    --accent-color: #FF6B08;
+  --pre-accent-color: #ff6b01;
+  --accent-color: #ff6b08;
 
-    --header-bcg-color: rgba(0, 0, 0, 0.56);
-    --main-bcg-color: #FFFFFF;
-    --second-bcg-color: #F7F7F7;
-    --backdrop-bcg-color: rgba(0, 0, 0, 0.25);
+  --header-bcg-color: rgba(0, 0, 0, 0.56);
+  --main-bcg-color: #ffffff;
+  --second-bcg-color: #f7f7f7;
+  --backdrop-bcg-color: rgba(0, 0, 0, 0.25);
 
-    --card-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    --border-radius: 5px;
+  --card-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  --border-radius: 5px;
 
-    --transition-time: 300ms;
-    --transition-function: inline;
+  --transition-time: 300ms;
+  --transition-function: inline;
 }
