@@ -24,3 +24,15 @@ darkModeToggle.addEventListener('click', () => {
     disableDarkMode();
   }
 });
+
+const sun = document.querySelector('.sun');
+const moon = document.querySelector('.moon');
+
+button.addEventListener('click', () => {
+  sun.classList.toggle('visible');
+  moon.classList.toggle('visible');
+});
+
+if (darkMode === 'enabled') {
+  enableDarkMode();
+}
