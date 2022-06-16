@@ -11,7 +11,9 @@ const refs = {
 };
 let searchQuery = '';
 
-refs.searchForm.addEventListener('submit', onFilmsByNameSearch);
+if (refs.searchForm) {
+  refs.searchForm.addEventListener('submit', onFilmsByNameSearch);
+}
 
 function onFilmsByNameSearch(e) {
   e.preventDefault();
