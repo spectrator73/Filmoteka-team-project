@@ -1,5 +1,12 @@
 let darkMode = localStorage.getItem('darkMode');
 
+
+
+if (darkMode === 'enabled') {
+  enableDarkMode();
+}
+
+if (document.location.pathname === '/index.html') { 
 const darkModeToggle = document.querySelector('#dark-mode-toggle');
 
 const enableDarkMode = () => {
@@ -11,27 +18,27 @@ const disableDarkMode = () => {
   document.querySelector('main').classList.remove('darkmode');
   localStorage.setItem('darkMode', null);
 };
-
-if (darkMode === 'enabled') {
-  enableDarkMode();
-}
-
-darkModeToggle.addEventListener('click', () => {
+  
+  darkModeToggle.addEventListener('click', () => {
   darkMode = localStorage.getItem('darkMode');
   if (darkMode !== 'enabled') {
     enableDarkMode();
   } else {
     disableDarkMode();
   }
-});
-
-const sun = document.querySelector('.sun');
+  });
+  
+  const sun = document.querySelector('.sun');
 const moon = document.querySelector('.moon');
 
 darkModeToggle.addEventListener('click', () => {
   sun.classList.toggle('visible');
   moon.classList.toggle('visible');
 });
+}
+
+
+
 
 if (darkMode === 'enabled') {
   enableDarkMode();

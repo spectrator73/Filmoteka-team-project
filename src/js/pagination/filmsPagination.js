@@ -10,17 +10,19 @@ let pageNumber = 1;
 let totalPages = 20;
 let searchQuery = null;
 
-const refs = {
-  linkList: document.querySelector('.pages-list'),
-  btnNext: document.querySelector('button[data-action="next"]'),
-  btnPrev: document.querySelector('button[data-action="prev"]'),
-};
+if (document.location.pathname === '/index.html') {
+  const refs = {
+    linkList: document.querySelector('.pages-list'),
+    btnNext: document.querySelector('button[data-action="next"]'),
+    btnPrev: document.querySelector('button[data-action="prev"]'),
+  };
 
-refs.linkList.addEventListener('click', filmsPagination);
-refs.btnNext.addEventListener('click', pageIncrement);
-refs.btnPrev.addEventListener('click', pageDecrement);
+  refs.linkList.addEventListener('click', filmsPagination);
+  refs.btnNext.addEventListener('click', pageIncrement);
+  refs.btnPrev.addEventListener('click', pageDecrement);
 
-getQuery();
+  getQuery();
+}
 
 export function getQuery(query) {
   if (pageNumber > 1 && searchQuery !== query) {
@@ -29,17 +31,18 @@ export function getQuery(query) {
   searchQuery = query;
   if (!searchQuery) {
     fisrtrButtonsRender(1, 20);
-  trendingMoviesRender();
+    trendingMoviesRender();
+  } else {
+    getTotalPages();
   }
-  else { getTotalPages() }
 }
 
 async function getTotalPages() {
-  const data = await filmsAPI.searchMovies(searchQuery,pageNumber);
+  const data = await filmsAPI.searchMovies(searchQuery, pageNumber);
   const { total_pages, results } = data;
   totalPages = total_pages;
   fisrtrButtonsRender(1, totalPages);
-  
+
   renderMarkup(results);
 }
 
@@ -52,16 +55,14 @@ async function fetchController() {
   console.log(searchQuery);
   if (!searchQuery) {
     trendingMoviesRender();
-  }
-  else {
+  } else {
     try {
       const data = await filmsAPI.searchMovies(searchQuery, pageNumber);
       const { results } = data;
       renderMarkup(results);
+    } catch (error) {
+      console.log(error.message);
     }
-    catch (error) {
-    console.log(error.message);
-  }
   }
 }
 

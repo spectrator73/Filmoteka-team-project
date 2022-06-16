@@ -5,6 +5,7 @@ import './js/api/searchFilmsByNameRender';
 import './js/back-to-top-btn/back-to-top-btn';
 import './js/dark-mode/dark-mode';
 import './js/modal/modal';
+import './js/add-active-style/libraryButtons';
 // import { onTrendingFilmsRender } from './js/api/trendingFilmRender';
 // document.addEventListener('DOMContentLoaded', onTrendingFilmsRender);
 // Используем как filmsAPI.searchMovies() и прочее

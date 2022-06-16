@@ -1,5 +1,5 @@
 {{#each this}}
-    <li class="gallery__item">
+    <li class="gallery__item" data-id={{id}}>
         {{#if poster_path}}
         <img  class="gallery__image" loading="lazy" src="https://image.tmdb.org/t/p/original{{poster_path}}" alt="{{original_title}}">
         {{/if}}
