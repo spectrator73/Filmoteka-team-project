@@ -1,6 +1,9 @@
-<div class="backdrop js-modal">
+<div class="backdrop js-modal visually-hidden">
   <div class="modal">
-    <button class="button-close modal__button-close js-modal-btn js-modal-btn-buy" type="button">
+    <button
+      class="button-close modal__button-close js-modal-btn"
+      type="button"
+    >
       <svg class="button-close__icon">
         <use href="./images/icons.svg#icon-close"></use>
       </svg>
@@ -8,7 +11,7 @@
     <div class="modal__container">
       <img
         class="img-film"
-        src="./images/header-library-background-mobile@2x.jpg"
+        src="./images/NoImage.jpeg"
         alt=""
       />
       <div class="about">
@@ -19,25 +22,25 @@
             <p class="about__item-value">
               <p class="rating">7.3</p>
               <span class="rating-text">/</span>
-              <p class="rating rating-all">1260</p>
+              <p class="rating-all">1260</p>
             </p>
           </li>
           <li class="about__item">
             <p class="about__item-key">Popularity</p>
             <p class="about__item-value">
-              <span>100.2</span>
+              <span class="popularity">100.2</span>
             </p>
           </li>
           <li class="about__item">
             <p class="about__item-key">Original Title</p>
             <p class="about__item-value">
-              <span>A FISTFUL OF LEAD</span>
+              <span class="original-title">A FISTFUL OF LEAD</span>
             </p>
           </li>
           <li class="about__item">
             <p class="about__item-key">Genre</p>
             <p class="about__item-value">
-              <span>WesternD</span>
+              <span class="genres">WesternD</span>
             </p>
           </li>
         </ul>
@@ -54,9 +57,9 @@
             lead... they’ve been double crossed – but by who and how?
           </p>
         </div>
-        <div class="button">
-          <button class="btn">add to Watched</button>
-          <button class="btn">add to queue</button>
+        <div class="button-modal">
+          <button class="btn-modal-aktive btn library__button library__button--active">add to Watched</button>
+          <button class="btn-modal library__button ">add to queue</button>
         </div>
       </div>
     </div>

@@ -1,10 +1,15 @@
 .backdrop {
+    
     position: fixed;
-    width: 100%;
-    height: 100%;
-    display: flex;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 2;
     justify-content: center;
     padding: 20px;
+    background-color: var(--backdrop-bcg-color);
+    overflow-y: scroll;
 
     @include mq(tablet) {
         padding: 219 32;
@@ -17,7 +22,11 @@
 
 .modal {
     position: relative;
-    margin: 0;
+    margin: 0 auto;
+    display: block;
+    background-color: var(--main-bcg-color);
+    min-height: 400px;
+    max-width: 280px;
 
     @include mq(tablet) {
         max-width: 704px;
@@ -39,10 +48,16 @@
     justify-content: center;
     align-items: center;
     padding: 0;
-    border: 2px solid tomato;
+    border: 2px solid var(--main-bcg-color);
 
     color: var(--text-main-color);
     background-color: var(--main-bcg-color);
+
+    transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+            color: #f11d1d;
+        }
 }
 
 .button-close__icon {
@@ -61,8 +76,6 @@
     @include mq(desktop) {
         padding: 40 16;
     }
-
-    border: 1px solid tomato;
 }
 
 .img-film {
@@ -115,7 +128,7 @@
     margin: 0;
     width: 36px;
     height: 16px;
-    background: var(--accent-color);
+    background-color: var(--accent-color);
     border-radius: 5px;
 
     font-family: 'Roboto';
@@ -125,6 +138,19 @@
 }
 
 .rating-all {
+    display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        margin: 0;
+        width: 36px;
+        height: 16px;
+        border-radius: 5px;
+    
+        font-family: 'Roboto';
+        @include font-size(12, 14);
+        font-weight: 500;
+
     color: var(--text-main-color);
     background-color: var(--bcg-color-modal);
 }
@@ -151,4 +177,44 @@
     @include font-size(12, 20);
     font-weight: 500;
     font-style: normal;
+}
+
+.button-modal{
+    display: flex;
+    justify-content: start;
+}
+
+.button-modal>.btn-modal{
+    background-color: #fff;
+    color: #000;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-left: 15px;
+    @include mq(tablet-only) {
+        margin-left: 14.94px;
+        margin-right: 0;
+        width: 125.03px;
+        height: 44px;
+        }
+    
+    @include mq(mobile-only) {
+        margin-left: 20px;
+  
+        width: 110px;
+        height: 44px;
+    }
+}
+
+.btn-modal-aktive{
+    text-transform: uppercase;
+    margin-top: 0;
+    @include mq(tablet-only) {
+            width: 125.03px;
+            height: 44px;
+        }
+    
+        @include mq(mobile-only) {
+            width: 110px;
+            height: 44px;
+        }
 }
