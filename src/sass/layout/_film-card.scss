@@ -26,6 +26,7 @@
 .gallery__title {
     text-transform: uppercase;
     color: var(--text-main-color);
+    transition: color var(--transition-time)
 }
 
 .gallery__genres,

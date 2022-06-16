@@ -1,6 +1,6 @@
 :root {
-    --text-main-color: #000000;
-    --text-second-color: #FFFFFF;
+    --text-main-color: #000;
+    --text-second-color: #FFF;
     --text-footer-color: #545454;
     --text-error-color: #FF001B;
     --text-modal-color: #8C8C8C;
@@ -19,3 +19,9 @@
     --transition-time: 300ms;
     --transition-function: inline;
 }
+
+.darkmode {
+    --text-main-color: #FFF;;
+    --text-second-color: #FFF;
+    --main-bcg-color: #000;
+  }
