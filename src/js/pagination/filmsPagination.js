@@ -2,6 +2,8 @@ import * as filmsAPI from '../api/fetchFilms.js';
 import {
   renderController,
   fisrtrButtonsRender,
+  hideNextBtn,
+  hidePrevBtn
 } from '../render/renderPageLinks';
 import { onTrendingFilmsRender } from '../api/trendingFilmRender';
 import { renderMarkup } from '../api/searchFilmsByNameRender';
@@ -32,6 +34,7 @@ export function getQuery(query) {
   trendingMoviesRender();
   }
   else { getTotalPages() }
+  hidePrevBtn(refs.btnPrev, pageNumber);
 }
 
 async function getTotalPages() {
@@ -49,7 +52,6 @@ async function trendingMoviesRender() {
 }
 
 async function fetchController() {
-  console.log(searchQuery);
   if (!searchQuery) {
     trendingMoviesRender();
   }
@@ -63,6 +65,9 @@ async function fetchController() {
     console.log(error.message);
   }
   }
+  hideNextBtn(refs.btnNext, pageNumber, totalPages);
+  hidePrevBtn(refs.btnPrev, pageNumber);
+  window.scrollTo(0, 0);
 }
 
 export async function filmsPagination(e) {
