@@ -4,7 +4,6 @@
     right: 0;
     z-index: 3;
 
-    display: none;
     flex-direction: column;
     align-items: center;
     padding-top: 12px;
@@ -12,18 +11,25 @@
     padding-bottom: 12px;
     padding-left: 25px;
 
-    color: var(--text-main-color);
+    color: var(--text-second-color);
 
-    background-color: var(--second-bcg-color);
+    background-color: #767d83;
     border-radius: 100px 0px 0px 0px;
-    transition: background-color var(--transition-time) var(--transition-function), color var(--transition-time) var(--transition-function);
+    transition: background-color var(--transition-time), var(--transition-function), opacity var(--transition-time),
+        var(--transition-function);
     cursor: pointer;
     border: none;
     outline: none;
+    opacity: 0;
+    visibility: hidden;
 
     &:hover {
-        color: var(--text-second-color);
         background-color: var(--accent-color);
+    }
+
+    &--is-show {
+        opacity: 1;
+        visibility: visible;
     }
 }
 
