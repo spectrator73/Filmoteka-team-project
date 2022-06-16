@@ -1,6 +1,16 @@
 .gallery__image {
     border-radius: 5px;
     margin-bottom: 10px;
+
+    @include mq(mobile) {
+        min-height: 420px;
+    }
+    @include mq(tablet) {
+        min-height: 455px;
+    }
+    @include mq(desktop) {
+        min-height: 450px;      
+    }
 }
 
 .gallery__title, 
@@ -16,6 +26,7 @@
 .gallery__title {
     text-transform: uppercase;
     color: var(--text-main-color);
+    transition: color var(--transition-time)
 }
 
 .gallery__genres,
