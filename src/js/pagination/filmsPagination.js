@@ -4,9 +4,11 @@ import {
   fisrtrButtonsRender,
 } from '../render/renderPageLinks';
 import { onTrendingFilmsRender } from '../api/trendingFilmRender';
+import { renderMarkup } from '../api/searchFilmsByNameRender';
 
 let pageNumber = 1;
 let totalPages = 20;
+let searchQuery = null;
 
 const refs = {
   linkList: document.querySelector('.pages-list'),
@@ -18,37 +20,55 @@ refs.linkList.addEventListener('click', filmsPagination);
 refs.btnNext.addEventListener('click', pageIncrement);
 refs.btnPrev.addEventListener('click', pageDecrement);
 
-//TODO Сюда будет приходить строка запроса - если пустая то грузится 20 страниц, если нет то вызывается функция searchMovies которой передается строка запроса и с response берется total_pages.
+getQuery();
 
-// async function getTotalPages(movie) {
-//   const data = await filmsAPI.searchMovies(movie,pageNumber);
-//   const { total_pages } = data;
-//   totalPages = total_pages;
-//   fisrtrButtonsRender(1, totalPages);
-// }
+export function getQuery(query) {
+  if (pageNumber > 1 && searchQuery !== query) {
+    pageNumber = 1;
+  }
+  searchQuery = query;
+  if (!searchQuery) {
+    fisrtrButtonsRender(1, 20);
+  trendingMoviesRender();
+  }
+  else { getTotalPages() }
+}
 
-// getTotalPages('bat');
+async function getTotalPages() {
+  const data = await filmsAPI.searchMovies(searchQuery,pageNumber);
+  const { total_pages, results } = data;
+  totalPages = total_pages;
+  fisrtrButtonsRender(1, totalPages);
+  
+  renderMarkup(results);
+}
 
-// movie !== ""
-//   ? getTotalPages(movie)
-//   : fisrtrButtonsRender(1, 20);
-
-fisrtrButtonsRender(1, 20);
-firstCardRender();
-
-async function firstCardRender() {
+async function trendingMoviesRender() {
   const data = await filmsAPI.fetchTrending(pageNumber);
   onTrendingFilmsRender(data);
+}
+
+async function fetchController() {
+  console.log(searchQuery);
+  if (!searchQuery) {
+    trendingMoviesRender();
+  }
+  else {
+    try {
+      const data = await filmsAPI.searchMovies(searchQuery, pageNumber);
+      const { results } = data;
+      renderMarkup(results);
+    }
+    catch (error) {
+    console.log(error.message);
+  }
+  }
 }
 
 export async function filmsPagination(e) {
   const btnNumber = e.target.textContent;
   pageNumber = +btnNumber;
-  // / movie !== ""
-  //   ? filmsAPI.searchMovies(movie,pageNumber)
-  //   : filmsAPI.fetchTrending(pageNumber);
-  const data = await filmsAPI.fetchTrending(pageNumber);
-  onTrendingFilmsRender(data);
+  fetchController();
   renderController(pageNumber, totalPages);
 }
 
@@ -57,9 +77,7 @@ async function pageIncrement() {
     return;
   }
   pageNumber += 1;
-  // / movie !== ""
-  //   ? filmsAPI.searchMovies(movie,pageNumber)
-  //   : filmsAPI.fetchTrending(pageNumber);
+  fetchController();
   const data = await filmsAPI.fetchTrending(pageNumber);
   onTrendingFilmsRender(data);
   renderController(pageNumber, totalPages);
@@ -70,9 +88,7 @@ async function pageDecrement() {
     return;
   }
   pageNumber -= 1;
-  // / movie !== ""
-  //   ? filmsAPI.searchMovies(movie,pageNumber)
-  //   : filmsAPI.fetchTrending(pageNumber);
+  fetchController();
   const data = await filmsAPI.fetchTrending(pageNumber);
   onTrendingFilmsRender(data);
   renderController(pageNumber, totalPages);
