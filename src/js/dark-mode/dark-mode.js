@@ -28,7 +28,7 @@ darkModeToggle.addEventListener('click', () => {
 const sun = document.querySelector('.sun');
 const moon = document.querySelector('.moon');
 
-button.addEventListener('click', () => {
+darkModeToggle.addEventListener('click', () => {
   sun.classList.toggle('visible');
   moon.classList.toggle('visible');
 });
