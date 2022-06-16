@@ -182,12 +182,12 @@
   }
 }
 
-.library {
+.library__button-wrap {
   display: flex;
   justify-content: center;
 }
 
-.library__button {
+.button-wrap__button {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
@@ -216,15 +216,14 @@
   &:hover {
     background-color: #f11d1d;
   }
+
+  &--active {
+    background: #ff6b01;
+    border: none;
+  }
 }
 
-.library__button--active {
-  background: #ff6b01;
-  border-radius: 5px;
-  border: none;
-}
-
-.library__button:last-child {
+.button-wrap__button:last-child {
   margin-left: 15px;
 
   @include mq(tablet-only) {
