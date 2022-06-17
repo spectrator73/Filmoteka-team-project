@@ -1,0 +1,104 @@
+.auth-modal__backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--backdrop-bcg-color);
+    // overflow-y: scroll;
+    z-index: 10;
+    // opacity: 0.85;
+}
+
+.auth-modal__container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    // height: 300px;
+    padding: 15px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    background-color: var(--main-bcg-color);
+
+}
+
+.auth-modal__btn-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-weight: 800;
+}
+
+.auth-modal__title {
+    font-family: 'Roboto';
+    @include font-size(20);
+    font-weight: 500;
+    text-decoration: underline;
+
+    margin: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.auth-form {    
+    width: 240px;
+    margin: 0 auto;
+}
+
+.auth-list {
+    margin-bottom: 10px;
+    text-align: end;
+    // display: flex;
+    // flex-direction: column;
+    // align-items: flex-end;
+}
+
+.auth-list__item {    
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-family: 'Roboto';
+    @include font-size(12, 16);
+    font-weight: 500;
+    // color: var(--text-modal-color);
+    text-transform: uppercase;
+}
+
+
+.auth-form input {
+    @include font-size(12, 14);
+    font-weight: 500;
+    // color: var(--text-modal-color);
+    font-style: italic;
+
+    margin-left: 5px;
+}
+
+.auth-form input::placeholder {
+    @include font-size(12, 14);
+    font-weight: 500;
+    color: var(--text-modal-color);  
+    font-style: italic;   
+}
+
+.auth-form__form-submit {
+    font-family: 'Roboto';
+    @include font-size(14);
+    font-weight: 500;
+    text-transform: uppercase;
+
+        display: block;
+        margin-left: auto;
+    padding: 2px 5px;
+
+
+    border-radius: 5px;
+    border: solid 1px;
+    transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer; 
+       
+    &:hover {
+        background-color: #f11d1d;
+    }
+}

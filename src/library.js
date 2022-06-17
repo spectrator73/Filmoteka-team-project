@@ -1,3 +1,4 @@
+import './js/auth-firebase/auth-main';
 import './js/back-to-top-btn/back-to-top-btn';
 
 // import './js/api/trendingFilmRender';
