@@ -44,6 +44,7 @@
   font-size: 20px;
   &:hover {
     color: var(--accent-color);
+    transition: color var(--transition-time) var(--transition-function);
   }
 
   @include mq(tablet-only) {
@@ -213,12 +214,11 @@
   border: none;
   border-radius: 50%;
   background-color: transparent;
-  color: var(--text-second-color);
   cursor: pointer;
-  transition: var(--transition-time) var(--transition-function);
+  transition: border var(--transition-time) var(--transition-function);
   outline: none;
   background-image: url('../images/close-modal.svg');
   background-position: center;
   background-size: 60%;
   background-repeat: no-repeat;
-}
+  }
