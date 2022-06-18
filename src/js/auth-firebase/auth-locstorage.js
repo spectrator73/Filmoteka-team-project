@@ -25,5 +25,3 @@ export class LocStorage {
     localStorage.removeItem(LocStorage.key);
   }
 }
-
-// LocStorage.setItem(defaultUserData);

@@ -28,12 +28,10 @@ export function signUp(email, password) {
 
   return createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
-      // console.log(userCredential);
       return userCredential.user;
     })
     .catch(error => {
       const errorMessage = error.message;
-      // ..
     });
 }
 
@@ -57,7 +55,6 @@ export function signOutOfFirebase() {
       checkUserAuthState();
     })
     .catch(error => {
-      // An error happened.
       //   Notify.failure("SignOut doesn't work");
     });
 }
@@ -81,7 +78,6 @@ export function getUserProfile() {
   const auth = getAuth();
   const user = auth.currentUser;
   if (user !== null) {
-    // console.log('user', user);
     user.providerData.forEach(profile => {
       console.log('Sign-in provider: ' + profile.providerId);
       console.log('  Provider-specific UID: ' + profile.uid);

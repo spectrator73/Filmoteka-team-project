@@ -1,10 +1,9 @@
 import { authRefs } from './auth-refs';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
 import { signUp, signIn, updateUserProfile } from './firebase';
 import { LocStorage } from './auth-locstorage';
 import { checkUserAuthState } from './auth-userstate';
 import { createUserDtbName } from './firebase-db';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 let isRegisteredUser = '';
 
@@ -13,24 +12,49 @@ export function openModal(elementAtr) {
     authRefs.titleModal.textContent = 'Authorization Form';
     authRefs.formUserName.classList.add('visually-hidden');
     isRegisteredUser = true;
-    // console.log('SIGN IN');
   } else if (elementAtr === 'js-signup') {
     authRefs.titleModal.textContent = 'Registration Form';
     authRefs.formUserName.classList.remove('visually-hidden');
     isRegisteredUser = false;
-    // console.log('SIGN UP');
   } else {
     return;
   }
+
   authRefs.backdropModal.classList.remove('visually-hidden');
   authRefs.btnModalClose.addEventListener('click', onModalBtnClose);
+  authRefs.backdropModal.addEventListener('click', onBackdrop);
   authRefs.form.addEventListener('submit', onFormSubmit);
+  window.addEventListener('keydown', onEscPress);
 }
 
 function onModalBtnClose() {
   authRefs.form.reset();
   authRefs.backdropModal.classList.add('visually-hidden');
   authRefs.btnModalClose.removeEventListener('click', onModalBtnClose);
+  authRefs.backdropModal.removeEventListener('click', onBackdrop);
+  window.removeEventListener('keydown', onEscPress);
+}
+
+function onBackdrop(event) {
+  if (event.target.classList.value !== 'auth-modal__backdrop') {
+    return;
+  }
+  authRefs.form.reset();
+  authRefs.backdropModal.classList.add('visually-hidden');
+  authRefs.btnModalClose.removeEventListener('click', onModalBtnClose);
+  authRefs.backdropModal.removeEventListener('click', onBackdrop);
+  window.removeEventListener('keydown', onEscPress);
+}
+
+function onEscPress(event) {
+  if (event.key !== 'Escape') {
+    return;
+  }
+  authRefs.form.reset();
+  authRefs.backdropModal.classList.add('visually-hidden');
+  authRefs.btnModalClose.removeEventListener('click', onModalBtnClose);
+  authRefs.backdropModal.removeEventListener('click', onBackdrop);
+  window.removeEventListener('keydown', onEscPress);
 }
 
 async function onFormSubmit(event) {
@@ -89,9 +113,9 @@ async function onFormSubmit(event) {
   authRefs.form.reset();
   authRefs.backdropModal.classList.add('visually-hidden');
 
-  // console.log(userEmail, userPassword);
-
   isRegisteredUser = '';
   authRefs.btnModalClose.removeEventListener('click', onModalBtnClose);
+  authRefs.backdropModal.removeEventListener('click', onBackdrop);
   authRefs.form.removeEventListener('submit', onFormSubmit);
+  window.removeEventListener('keydown', onEscPress);
 }

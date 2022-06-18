@@ -1,7 +1,4 @@
 export const authRefs = {
-  //   btnGet: document.querySelector('.get'),
-  //   btnPost: document.querySelector('.post'),
-  //   btnClear: document.querySelector('.del'),
   userName: document.querySelector('.auth__username'),
   authLine: document.querySelector('[js-auth]'),
   btnSignOut: document.querySelector('.auth__signOut'),
@@ -17,5 +14,3 @@ export const defaultUserData = {
   email: 'test@test.com',
   uid: 'USsPfcF0kUZ7u3BIzTca8upTQO03',
 };
-
-// console.log(refs.btnSignOut);

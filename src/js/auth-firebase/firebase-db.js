@@ -1,4 +1,3 @@
-// import { usersData } from '../index';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { LocStorage } from './auth-locstorage';
 
