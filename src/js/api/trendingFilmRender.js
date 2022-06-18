@@ -11,11 +11,14 @@ const refs = {
 export const onTrendingFilmsRender = filmsData => {
   transformDate(filmsData);
   transformGenre(filmsData, genresList);
-  console.log('Ready TrendigFilms for cards: ', filmsData);
-  refs.gallery.innerHTML = '';
-  renderMarkup(filmsData); // !!! Render function awaits films card
+  clearMarkup();
+  renderMarkup(filmsData);
 };
 
 function renderMarkup(filmsData) {
   refs.gallery.insertAdjacentHTML('beforeend', galleryMarkup(filmsData));
+}
+
+function clearMarkup() {
+  refs.gallery.innerHTML = '';
 }

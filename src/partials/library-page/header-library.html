@@ -5,8 +5,8 @@
         <li class="logo__item">
           <a href="index.html" class="logo__link"
             ><svg class="button__icon-arrow" width="24" height="24">
-              <use href="images/icons.svg#icon-film"></use></svg
-          ></a>
+              <use href="images/icons.svg#icon-film"></use></svg>
+          </a>
         </li>
         <li class="logo__item">
           <a href="index.html" class="logo__link logo__link--notmobile"
@@ -24,11 +24,26 @@
               >MY LIBRARY</a
             >
           </li>
+          <li><button id="dark-mode-toggle" class="dark-mode-toggle">
+            <div class="sun visible"></div>
+            <div class="moon"><div class="star"></div>
+            <div class="star small"></div>
+        </button></li>
         </ul>
       </nav>
     </div>
+    <div class="auth auth__container">
+      <p class="auth__greeting">Hi,<span class="auth__username"></span></p>
+      <div js-auth class="">
+        <button class="auth__signIn" js-signin>Sign in</button><span>or,</span>
+        <button class="auth__signUp" js-signup>Register</button>
+      </div>
+      <button type="button" class="auth__signOut visually-hidden" js-signout>
+        Sign out
+      </button>
+    </div>
     <div class="library__button-wrap">
-      <button class="button-wrap__button" type="submit" data-category="watched">WATCHED</button>
+      <button class="button-wrap__button button-wrap__button--active" type="submit" data-category="watched">WATCHED</button>
       <button class="button-wrap__button" type="submit" data-category="queue">QUEUE</button>
     </div>
   </div>

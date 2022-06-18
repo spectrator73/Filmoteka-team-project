@@ -62,6 +62,9 @@ function dynamicButtonsRender(pageNumber, totalPages) {
 }
 
 export function hideNextBtn(refBtn, pageNumber, totalPages) {
+  if (pageNumber === 0) {
+    refBtn.classList.add('button-hidden');
+  }
   if (pageNumber === totalPages) {
     refBtn.classList.add('button-hidden');
   }
@@ -71,6 +74,9 @@ export function hideNextBtn(refBtn, pageNumber, totalPages) {
 }
 
 export function hidePrevBtn(refBtn, pageNumber) {
+  if (pageNumber === 0) {
+    refBtn.classList.add('button-hidden');
+  }
   if (pageNumber === 1) {
     refBtn.classList.add('button-hidden');
   }

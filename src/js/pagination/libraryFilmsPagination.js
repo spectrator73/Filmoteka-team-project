@@ -12,6 +12,7 @@ const refs = {
   linkList: document.querySelector('.pages-list'),
   btnNext: document.querySelector('button[data-action="next"]'),
   btnPrev: document.querySelector('button[data-action="prev"]'),
+  navList: document.querySelector('.page-navigation'),
 };
 
 refs.btnList.addEventListener('click', categoryRender);
@@ -30,12 +31,19 @@ let filteredData = [];
 firstRender(parsedWatchedFilms);
 
 function firstRender(filmsData) {
+  if (!filmsData) {
+    refs.navList.style.display = 'none';
+    hidePrevBtn(refs.btnPrev, pageNumber);
+    hideNextBtn(refs.btnNext, pageNumber, totalPages);
+    libraryFilmsRender(filmsData);
+    return
+  }
   filteredData = [];
   if (filmsData.length > 20) {
+     refs.navList.style.display = 'flex';
     for (let i = 0; i < 20; i++) {
       filteredData.push(filmsData[i]);
     }
-    console.log(filteredData);
     libraryFilmsRender(filteredData);
     totalPagesCalculator(filmsData);
     hidePrevBtn(refs.btnPrev, pageNumber);
@@ -43,6 +51,7 @@ function firstRender(filmsData) {
     data = filmsData;
     return;
   }
+  refs.navList.style.display = 'flex';
   libraryFilmsRender(filmsData);
   totalPagesCalculator(filmsData);
   hidePrevBtn(refs.btnPrev, pageNumber);
@@ -51,6 +60,7 @@ function firstRender(filmsData) {
 }
 
 function categoryRender(e) {
+  console.log(e.target);
   if (e.target.dataset.category === 'watched') {
     const watchedFilms = localStorage.getItem('watchedFilms');
     const parsedWatchedFilms = JSON.parse(watchedFilms);

@@ -11,9 +11,7 @@ const refs = {
 };
 let searchQuery = '';
 
-if (refs.searchForm) {
-  refs.searchForm.addEventListener('submit', onFilmsByNameSearch);
-}
+refs.searchForm.addEventListener('submit', onFilmsByNameSearch);
 
 function onFilmsByNameSearch(e) {
   e.preventDefault();
@@ -23,10 +21,9 @@ function onFilmsByNameSearch(e) {
   if (!currentSearchQuery) {
     return;
   }
-
-  searchQuery = currentSearchQuery;
+  
+  getQuery(currentSearchQuery);
   e.target.reset();
-  getQuery(searchQuery);
 }
 
 export function renderMarkup(filmsData) {

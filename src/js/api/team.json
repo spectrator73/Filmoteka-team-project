@@ -1,0 +1,71 @@
+[
+  {
+    "name": "Bogdan",
+    "position": "Teamlead",
+    "imageMember": "https://avatars.githubusercontent.com/u/93487432?v=4",
+    "socialLink": "https://github.com/MyagkiyBogdan"
+  },
+  {
+    "name": "Denis",
+    "position": "Scrum master",
+    "imageMember": "https://avatars.githubusercontent.com/u/92094689?v=4",
+    "socialLink": "https://github.com/chelydra-ua"
+  },
+
+  {
+    "name": "Sergey",
+    "position": "Developer",
+    "imageMember": "https://avatars.githubusercontent.com/u/36915523?v=4",
+    "socialLink": "https://github.com/KaraninS"
+  },
+  {
+    "name": "Vladimir",
+    "position": "Developer",
+    "imageMember": "https://avatars.githubusercontent.com/u/91782115?v=4",
+    "socialLink": "https://github.com/Popeye80"
+  },
+  {
+    "name": "Dmitriy",
+    "position": "Developer",
+    "imageMember": "https://avatars.githubusercontent.com/u/91630215?v=4",
+    "socialLink": "https://github.com/DmitriyGovosyants"
+  },
+  {
+    "name": "Nikita",
+    "position": "Developer",
+    "imageMember": "https://avatars.githubusercontent.com/u/92080056?v=4",
+    "socialLink": "https://github.com/NickDurnev"
+  },
+  {
+    "name": "Oleg",
+    "position": "Developer",
+    "imageMember": "https://avatars.githubusercontent.com/u/92692410?v=4",
+    "socialLink": "https://github.com/OlehKulyk2710"
+  },
+
+  {
+    "name": "Markiyan",
+    "position": "Developer",
+    "imageMember": "https://avatars.githubusercontent.com/u/91689185?v=4",
+    "socialLink": "https://github.com/MarkiyanYatsulchak"
+  },
+  {
+    "name": "Max",
+    "position": "Developer",
+    "imageMember": "https://avatars.githubusercontent.com/u/92626684?v=4",
+    "socialLink": "https://github.com/MaxVidom"
+  },
+  {
+    "name": "Yevhenii",
+    "position": "Developer",
+    "imageMember": "https://avatars.githubusercontent.com/u/93095282?v=4",
+    "socialLink": "hhttps://github.com/YevheniiYakovlev"
+  },
+
+  {
+    "name": "Ihor",
+    "position": "Developer",
+    "imageMember": "https://avatars.githubusercontent.com/u/92684157?v=4",
+    "socialLink": "https://github.com/Ihor-Melnyk"
+  }
+]
