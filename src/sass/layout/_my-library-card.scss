@@ -1,50 +1,39 @@
-.gallery__image {
+.my-library__image {
     border-radius: 5px;
     margin-bottom: 10px;
-
-    @include mq(mobile) {
-        min-height: 420px;
-    }
-    @include mq(tablet) {
-        min-height: 455px;
-    }
-    @include mq(desktop) {
-        min-height: 450px;      
-    }
 }
 
-.gallery__title, 
-.gallery__genres,
-.gallery__date, 
-.gallery__vote {
+.my-library__title, 
+.my-library__genres,
+.my-library__date, 
+.my-library__vote {
     font-family: 'Roboto';
     font-weight: 500;
     @include font-size(12, 16, );
 }
 
 
-.gallery__title {
+.my-library__title {
     text-transform: uppercase;
     color: var(--text-main-color);
-    transition: color var(--transition-time)
 }
 
-.gallery__genres,
-.gallery__date {
+.my-library__genres,
+.my-library__date {
     color: var(--accent-color);
 }
 
-.gallery__date {
+.my-library__date {
     margin-right: 8px;
 }
 
-.gallery__genres {
+.my-library__genres {
     padding-right: 5px;
     margin-right: 5px;
     border-right: 1px solid var(--accent-color);
 }
 
-.gallery__vote {
+.my-library__vote {
     color: var(--text-second-color);
     background-color: var(--accent-color);
     padding: 1px 10px 1px 10px;

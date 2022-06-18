@@ -21,10 +21,9 @@ function onFilmsByNameSearch(e) {
   if (!currentSearchQuery) {
     return;
   }
-
-  searchQuery = currentSearchQuery;
+  
+  getQuery(currentSearchQuery);
   e.target.reset();
-  getQuery(searchQuery);
 }
 
 export function renderMarkup(filmsData) {

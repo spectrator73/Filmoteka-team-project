@@ -2,9 +2,12 @@ import * as filmsAPI from '../api/fetchFilms.js';
 import {
   renderController,
   fisrtrButtonsRender,
+  hideNextBtn,
+  hidePrevBtn
 } from '../render/renderPageLinks';
 import { onTrendingFilmsRender } from '../api/trendingFilmRender';
 import { renderMarkup } from '../api/searchFilmsByNameRender';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 let pageNumber = 1;
 let totalPages = 20;
@@ -29,13 +32,20 @@ export function getQuery(query) {
   searchQuery = query;
   if (!searchQuery) {
     fisrtrButtonsRender(1, 20);
-  trendingMoviesRender();
+    trendingMoviesRender();
+  } else {
+    getTotalPages();
   }
-  else { getTotalPages() }
+  hidePrevBtn(refs.btnPrev, pageNumber);
 }
 
 async function getTotalPages() {
-  const data = await filmsAPI.searchMovies(searchQuery,pageNumber);
+  const data = await filmsAPI.searchMovies(searchQuery, pageNumber);
+
+  if (!data.results.length) {
+    return Notify.failure('Sorry, there are no films matching your search query. Please try again.');
+  }
+  
   const { total_pages, results } = data;
   totalPages = total_pages;
   fisrtrButtonsRender(1, totalPages);
@@ -49,7 +59,6 @@ async function trendingMoviesRender() {
 }
 
 async function fetchController() {
-  console.log(searchQuery);
   if (!searchQuery) {
     trendingMoviesRender();
   }
@@ -63,6 +72,9 @@ async function fetchController() {
     console.log(error.message);
   }
   }
+  hideNextBtn(refs.btnNext, pageNumber, totalPages);
+  hidePrevBtn(refs.btnPrev, pageNumber);
+  window.scrollTo(0, 0);
 }
 
 export async function filmsPagination(e) {
