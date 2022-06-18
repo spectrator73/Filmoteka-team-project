@@ -11,7 +11,6 @@
     background-color: rgba(255, 255, 255, 0);
   &:hover,
   &:focus {
-    cursor: pointer;
     transition: background-color 300ms;
     background-color: rgba(255, 255, 255, 0.05); 
   }
