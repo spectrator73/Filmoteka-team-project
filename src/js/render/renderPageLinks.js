@@ -6,10 +6,10 @@ const refs = {
 };
 
 export function renderController(pageNumber, totalPages) {
-  if (pageNumber >= 4 && pageNumber <= totalPages) {
+  if (pageNumber >= 3 && pageNumber <= totalPages) {
     dynamicButtonsRender(pageNumber, totalPages);
   }
-  if (pageNumber < 4 || pageNumber === 1) {
+  if (pageNumber < 3 || pageNumber === 1) {
     fisrtrButtonsRender(pageNumber, totalPages);
   }
   document.querySelector(`#item${pageNumber}`).classList.add('active');
@@ -23,9 +23,9 @@ export function fisrtrButtonsRender(pageNumber, totalPages) {
   }
   const renderPages = pages.map(page => addPage(page));
   buttonsMarkup = [...renderPages];
-  if (totalPages > 4) {
+  if (totalPages > 3) {
     const filteredPages = pages
-      .filter(page => page <= 4)
+      .filter(page => page <= 3)
       .map(page => addPage(page));
     buttonsMarkup = [...filteredPages, dots, addPage(totalPages)];
   }
@@ -39,21 +39,24 @@ function dynamicButtonsRender(pageNumber, totalPages) {
   for (let i = pageNumber - 2; i <= pageNumber + 2; i++) {
     pages.push(addPage(i));
   }
-  if (pageNumber <= totalPages - 4 && totalPages !== 4) {
+  if (pageNumber < totalPages - 3) {
     pages.push(dots);
   }
-  if (pageNumber === totalPages || pageNumber > totalPages-3) {
+  if (pageNumber === totalPages || pageNumber > totalPages-2) {
     pages = [];
-    for (let i = totalPages - 3; i <= totalPages - 1; i++) {
+    for (let i = totalPages - 2; i <= totalPages - 1; i++) {
     pages.push(addPage(i));
   }
   }
   buttonsMarkup = [addPage(1), dots, ...pages, addPage(totalPages)];
-  if (pageNumber === 4) {
+  if (pageNumber === totalPages - 2) {
+      buttonsMarkup = [addPage(1), dots, ...pages];
+  }
+  if (pageNumber === 4 && totalPages !== 4) {
     buttonsMarkup = [addPage(1), ...pages, addPage(totalPages)];
   }
-  if (totalPages === 4) {
-      buttonsMarkup = [...pages, addPage(totalPages)];
+  if (pageNumber === 3) {
+    buttonsMarkup = [...pages, addPage(totalPages)];
   }
   refs.linkList.insertAdjacentHTML('beforeend', buttonsMarkup.join(''));
 }
@@ -75,7 +78,6 @@ export function hidePrevBtn(refBtn, pageNumber) {
     refBtn.classList.remove('button-hidden');
   }
 }
-
 
 function addPage(page) {
   return `<li id=item${page}><a>${page}</a></li>`;
