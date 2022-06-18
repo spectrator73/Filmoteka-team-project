@@ -40,5 +40,12 @@
     &:not(:nth-child(3n)) {
       margin-right: 16.5px;
     }
+    
+    transition: transform 300ms;
+
+  &:hover {
+  transition: transform 300ms;
+  transform: scale(1.05);
+  cursor: pointer;}
   }
 }
