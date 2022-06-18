@@ -1,16 +1,20 @@
   .dark-mode-toggle {
-    width: 46px;
-    height: 46px;
-    box-sizing: border-box;
-    padding: 12px;
-    background: none;
-    border: none;
+    width: 36px;
+    height: 36px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     border-radius: 5px;
-    border: solid 1px;
+    border: solid 1.5px;
+    transition: background-color 300ms;
+    background-color: rgba(255, 255, 255, 0);
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    transition: background-color 300ms;
+    background-color: rgba(255, 255, 255, 0.05); 
+  }
   }
   
   .sun {
@@ -25,7 +29,7 @@
       circle,
       rgba(0, 0, 0, 0),
       rgba(0, 0, 0, 0) 50%,
-      #f0f0f0 50%
+      var(--accent-color) 50%
     );
   }
   .sun:before {
@@ -39,10 +43,11 @@
       #f0f0f0 30%,
       rgba(0, 0, 0, 0) 31%,
       rgba(0, 0, 0, 0) 50%,
-      #f0f0f0 50%
+      var(--accent-color) 50%
     );
     transform: rotate(45deg);
   }
+
   .sun.visible {
     pointer-events: auto;
     opacity: 1;
@@ -50,15 +55,15 @@
     transition: transform 0.3s ease-in, opacity 0.2s ease-in 0.1s;
   }
   .moon {
-    width: 50%;
-    height: 50%;
+    width: 60%;
+    height: 60%;
     pointer-events: none;
     position: absolute;
     left: 12.5%;
     top: 18.75%;
     background-color: rgba(0, 0, 0, 0);
     border-radius: 50%;
-    box-shadow: 9px 3px 0px 0px #f0f0f0;
+    box-shadow: 5px 3px 0px 0px #f0f0f0;
     opacity: 0;
     transform: scale(0.3) rotate(65deg);
     transition: transform 0.3s ease-in, opacity 0.2s ease-in 0.1s;
@@ -77,14 +82,14 @@
     width: 0px;
     height: 0px;
     border-right: 7px solid rgba(0, 0, 0, 0);
-    border-bottom: 5px solid #f0f0f0;
+    border-bottom: 5px solid var(--accent-color);
     border-left: 7px solid rgba(0, 0, 0, 0);
     transform: scale(0.55) rotate(35deg);
     opacity: 0;
     transition: all 0.2s ease-in 0.4s;
   }
   .star:before {
-    border-bottom: 5px solid #f0f0f0;
+    border-bottom: 5px solid var(--accent-color);
     border-left: 3px solid rgba(0, 0, 0, 0);
     border-right: 3px solid rgba(0, 0, 0, 0);
     position: absolute;
@@ -105,7 +110,7 @@
     width: 0px;
     height: 0px;
     border-right: 7px solid rgba(0, 0, 0, 0);
-    border-bottom: 5px solid #f0f0f0;
+    border-bottom: 5px solid var(--accent-color);
     border-left: 7px solid rgba(0, 0, 0, 0);
     transform: rotate(-70deg);
     content: "";
