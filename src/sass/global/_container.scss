@@ -33,9 +33,10 @@
   width: 410px;
   margin: 0 auto;
   align-items: center;
+  justify-content: center;
 
   @include mq(mobile-only) {
-    width: 50vw;
+    width: 55vw;
     justify-content: space-between;
     }
 
@@ -57,6 +58,10 @@
     text-align: center;
     padding-bottom: 8px;
   }
+}
+
+.button-hidden {
+  display: none;
 }
 
 .page-navigation-button__icon {
