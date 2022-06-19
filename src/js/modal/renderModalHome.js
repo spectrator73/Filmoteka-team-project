@@ -49,8 +49,8 @@ export function renderModal({
           </p>
         </div>
         <div class="button-modal">
-          <button class="btn-modal-aktive btn library__button library__button--active" data-action="add-to-watched">add to Watched</button>
-          <button class="btn-modal library__button " data-action="add-to-queue">add to queue</button>
+          <button class="modal__btn-active btn modal__btn" data-action="add-to-watched">add to Watched</button>
+          <button class=" btn modal__btn " data-action="add-to-queue">add to queue</button>
         </div>
       </div>
 `;

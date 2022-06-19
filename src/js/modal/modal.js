@@ -1,10 +1,10 @@
 import * as filmsAPI from '../api/fetchFilms';
 
-import {genresModal} from '../modal/genresModal.js'
-import {onBackDropModalClose} from '../modal/modal-close.js';
-import {onBtnModalClose} from '../modal/modal-close.js';
-import { onEscapeModalClose } from '../modal/modal-close.js'
-import { renderModal } from "../modal/renderModalHome";
+import { genresModal } from '../modal/genresModal.js';
+import { onBackDropModalClose } from '../modal/modal-close.js';
+import { onBtnModalClose } from '../modal/modal-close.js';
+import { onEscapeModalClose } from '../modal/modal-close.js';
+import { renderModal } from '../modal/renderModalHome';
 import { addFilmsToLocal } from '../local-storage/addDataToLocalStorage';
 
 let movieId = '';
@@ -16,6 +16,7 @@ const cardEl = document.querySelector('.gallery');
 cardEl.addEventListener('click', onClickCard);
 const sliderEl = document.querySelector('.swiper-wrapper');
 sliderEl.addEventListener('click', onClickCard);
+const body = document.querySelector('body');
 
 //object from localStorage
 let localStorageFilmCard = {
@@ -29,7 +30,6 @@ let localStorageFilmCard = {
   genres: '',
   overview: '',
   release_date: '',
-
 };
 
 export async function onClickCard(e) {
@@ -49,7 +49,7 @@ export async function onClickCard(e) {
       return;
     }
   }
-
+  body.style.overflow = 'hidden';
   backDrop.classList.remove('visually-hidden');
 
   const id = document.querySelector('.gallery__item');
@@ -63,26 +63,25 @@ export async function onClickCard(e) {
     }
   }
 
-
-   //film on id
+  //film on id
   const filmsData = await filmsAPI.getOneMovieDetails(movieId);
   genresModal(filmsData);
-  
-  const cardModal = renderModal(filmsData);
-  
-    modalContainer.insertAdjacentHTML('afterbegin', cardModal)
 
-    localStorageFilmCard.id = movieId;
-    localStorageFilmCard.poster_path = `https://image.tmdb.org/t/p/original${filmsData.poster_path}`;
-    localStorageFilmCard.original_title = filmsData.original_title;
-    localStorageFilmCard.vote_average = filmsData.vote_average;
-    localStorageFilmCard.vote_count = filmsData.vote_count;
-    localStorageFilmCard.popularity = filmsData.popularity;
-    localStorageFilmCard.original_title = filmsData.original_title;
-    localStorageFilmCard.genres = filmsData.genres;
-    localStorageFilmCard.overview = filmsData.overview;
-    localStorageFilmCard.release_date = filmsData.release_date;
-  
+  const cardModal = renderModal(filmsData);
+
+  modalContainer.insertAdjacentHTML('afterbegin', cardModal);
+
+  localStorageFilmCard.id = movieId;
+  localStorageFilmCard.poster_path = `https://image.tmdb.org/t/p/original${filmsData.poster_path}`;
+  localStorageFilmCard.original_title = filmsData.original_title;
+  localStorageFilmCard.vote_average = filmsData.vote_average;
+  localStorageFilmCard.vote_count = filmsData.vote_count;
+  localStorageFilmCard.popularity = filmsData.popularity;
+  localStorageFilmCard.original_title = filmsData.original_title;
+  localStorageFilmCard.genres = filmsData.genres;
+  localStorageFilmCard.overview = filmsData.overview;
+  localStorageFilmCard.release_date = filmsData.release_date;
+
   const btnList = document.querySelector('.button-modal');
 
   btnClose.addEventListener('click', onBtnModalClose);
