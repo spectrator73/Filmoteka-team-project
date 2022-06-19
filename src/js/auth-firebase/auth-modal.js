@@ -7,7 +7,10 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 let isRegisteredUser = '';
 
+const body = document.querySelector('body');
+
 export function openModal(elementAtr) {
+  body.style.overflow = 'hidden';
   if (elementAtr === 'js-signin') {
     authRefs.titleModal.textContent = 'Authorization Form';
     authRefs.formUserName.classList.add('visually-hidden');
@@ -29,6 +32,7 @@ export function openModal(elementAtr) {
 
 function onModalBtnClose() {
   authRefs.form.reset();
+  body.style.overflow = 'visible';
   authRefs.backdropModal.classList.add('visually-hidden');
   authRefs.btnModalClose.removeEventListener('click', onModalBtnClose);
   authRefs.backdropModal.removeEventListener('click', onBackdrop);
@@ -39,6 +43,7 @@ function onBackdrop(event) {
   if (event.target.classList.value !== 'auth-modal__backdrop') {
     return;
   }
+  body.style.overflow = 'visible';
   authRefs.form.reset();
   authRefs.backdropModal.classList.add('visually-hidden');
   authRefs.btnModalClose.removeEventListener('click', onModalBtnClose);
@@ -50,6 +55,7 @@ function onEscPress(event) {
   if (event.key !== 'Escape') {
     return;
   }
+  body.style.overflow = 'visible';
   authRefs.form.reset();
   authRefs.backdropModal.classList.add('visually-hidden');
   authRefs.btnModalClose.removeEventListener('click', onModalBtnClose);
@@ -77,6 +83,7 @@ async function onFormSubmit(event) {
       return;
     }
     Notify.success('You are signed in');
+    body.style.overflow = 'visible';
     const currentUserData = {
       name: responseSignIn.displayName,
       email: responseSignIn.email,
@@ -97,7 +104,7 @@ async function onFormSubmit(event) {
     Notify.success(
       `Congratulation! New user ${userName} has been just registered.`
     );
-
+    body.style.overflow = 'visible';
     const currentUserData = {
       name: userName,
       email: responseSignUp.email,
