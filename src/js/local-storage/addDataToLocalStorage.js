@@ -1,6 +1,6 @@
 export function addFilmsToLocal(film, localKey) {
   let existingFilms = JSON.parse(localStorage.getItem(`${localKey}`));
-  if (existingFilms == null) {
+  if (!existingFilms) {
     existingFilms = [];
   }
   const checkingId = existingFilms.find(({ id }) => id === film.id);

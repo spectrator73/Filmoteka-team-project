@@ -16,6 +16,8 @@ export function renderController(pageNumber, totalPages) {
 }
 
 export function fisrtrButtonsRender(pageNumber, totalPages) {
+  console.log(pageNumber);
+  console.log(totalPages);
   refs.linkList.innerHTML = '';
   let pages = [];
   for (let i = 1; i <= totalPages; i++) {

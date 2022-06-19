@@ -1,7 +1,6 @@
 import * as filmsAPI from '../api/fetchFilms.js';
 import {
   renderController,
-  fisrtrButtonsRender,
   hideNextBtn,
   hidePrevBtn
 } from '../render/renderPageLinks';
@@ -9,7 +8,13 @@ import { onTrendingFilmsRender } from '../api/trendingFilmRender';
 import { renderMarkup } from '../api/searchFilmsByNameRender';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
+let savedPageNumber = JSON.parse(sessionStorage.getItem('mainPageNumber'));
 let pageNumber = 1;
+
+!savedPageNumber
+  ? pageNumber = 1
+  : pageNumber = savedPageNumber;
+
 let totalPages = 20;
 let searchQuery = null;
 let prevSearchQuery = null;
@@ -28,12 +33,9 @@ refs.btnPrev.addEventListener('click', pageDecrement);
 getQuery();
 
 export function getQuery(query) {
-  if (pageNumber > 1 && searchQuery !== query) {
-    pageNumber = 1;
-  }
   searchQuery = query;
   if (!searchQuery) {
-    fisrtrButtonsRender(1, 20);
+    renderController(pageNumber, totalPages);
     trendingMoviesRender();
   } else {
     getTotalPages();
@@ -50,7 +52,7 @@ async function getTotalPages() {
   const { total_pages, results } = data;
   totalPages = total_pages;
   prevSearchQuery = searchQuery;
-  fisrtrButtonsRender(1, totalPages);
+  renderController(pageNumber, totalPages);
   
   renderMarkup(results);
 }
@@ -96,6 +98,7 @@ async function fetchController() {
 export async function filmsPagination(e) {
   const btnNumber = e.target.textContent;
   pageNumber = +btnNumber;
+  sessionStorage.setItem('mainPageNumber', JSON.stringify(pageNumber));
   fetchController();
   renderController(pageNumber, totalPages);
 }
@@ -105,6 +108,7 @@ async function pageIncrement() {
     return;
   }
   pageNumber += 1;
+  sessionStorage.setItem('mainPageNumber', JSON.stringify(pageNumber));
   fetchController();
   const data = await filmsAPI.fetchTrending(pageNumber);
   onTrendingFilmsRender(data);
@@ -116,6 +120,7 @@ async function pageDecrement() {
     return;
   }
   pageNumber -= 1;
+  sessionStorage.setItem('mainPageNumber', JSON.stringify(pageNumber));
   fetchController();
   const data = await filmsAPI.fetchTrending(pageNumber);
   onTrendingFilmsRender(data);

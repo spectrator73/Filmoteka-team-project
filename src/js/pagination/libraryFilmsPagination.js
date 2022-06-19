@@ -1,6 +1,5 @@
 import {
   renderController,
-  fisrtrButtonsRender,
   hideNextBtn,
   hidePrevBtn,
 } from '../render/renderPageLinks';
@@ -23,12 +22,25 @@ refs.btnPrev.addEventListener('click', pageDecrement);
 const watchedFilms = localStorage.getItem('watchedFilms');
 const parsedWatchedFilms = JSON.parse(watchedFilms);
 
+let savedPageNumber = JSON.parse(sessionStorage.getItem('libraryPageNumber'));
 let pageNumber = 1;
+
+!savedPageNumber ? (pageNumber = 1) : (pageNumber = savedPageNumber);
+
 let totalPages = 0;
 let data = null;
 let filteredData = [];
 
-firstRender(parsedWatchedFilms);
+if (pageNumber === 1) {
+  firstRender(parsedWatchedFilms);
+}
+
+if (pageNumber > 1) {
+  data = parsedWatchedFilms;
+  totalPagesCalculator(parsedWatchedFilms);
+  filmsPagination();
+  console.log(data);
+}
 
 function firstRender(filmsData) {
   if (!filmsData) {
@@ -36,11 +48,11 @@ function firstRender(filmsData) {
     hidePrevBtn(refs.btnPrev, pageNumber);
     hideNextBtn(refs.btnNext, pageNumber, totalPages);
     libraryFilmsRender(filmsData);
-    return
+    return;
   }
   filteredData = [];
   if (filmsData.length > 20) {
-     refs.navList.style.display = 'flex';
+    refs.navList.style.display = 'flex';
     for (let i = 0; i < 20; i++) {
       filteredData.push(filmsData[i]);
     }
@@ -60,13 +72,17 @@ function firstRender(filmsData) {
 }
 
 function categoryRender(e) {
-  console.log(e.target);
   if (e.target.dataset.category === 'watched') {
     const watchedFilms = localStorage.getItem('watchedFilms');
     const parsedWatchedFilms = JSON.parse(watchedFilms);
     data = parsedWatchedFilms;
-    firstRender(data);
+    let savedPageNumber = JSON.parse(sessionStorage.getItem('libraryPageNumber'));
+    !savedPageNumber ? (pageNumber = 1) : (pageNumber = savedPageNumber);
+    totalPagesCalculator(parsedWatchedFilms);
+    filmsPagination();
   } else {
+    pageNumber = 1;
+    // sessionStorage.removeItem('libraryPageNumber');
     const queueFilms = localStorage.getItem('queueFilms');
     const parsedQueueFilms = JSON.parse(queueFilms);
     data = parsedQueueFilms;
@@ -80,7 +96,7 @@ function totalPagesCalculator(dataArray) {
   }
 
   totalPages = Math.ceil(dataArray.length / 20);
-  fisrtrButtonsRender(pageNumber, totalPages);
+  renderController(pageNumber, totalPages);
 }
 
 function filmsPagination() {
@@ -126,6 +142,7 @@ function filmsPagination() {
 function pageController(e) {
   const btnNumber = e.target.textContent;
   pageNumber = +btnNumber;
+  sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
   filmsPagination();
 }
 
@@ -134,6 +151,7 @@ function pageIncrement() {
     return;
   }
   pageNumber += 1;
+  sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
   filmsPagination();
 }
 
@@ -142,5 +160,6 @@ function pageDecrement() {
     return;
   }
   pageNumber -= 1;
+  sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
   filmsPagination();
 }
