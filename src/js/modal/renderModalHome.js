@@ -1,6 +1,13 @@
-export function renderModal({ poster_path, original_title, vote_average, vote_count, popularity, genres, overview }) {
-    const markupModal = 
-      `        <img
+export function renderModal({
+  poster_path,
+  original_title,
+  vote_average,
+  vote_count,
+  popularity,
+  genres,
+  overview,
+}) {
+  const markupModal = `        <img
         class="img-film"
         src="https://image.tmdb.org/t/p/original${poster_path}"
         alt=""
@@ -46,6 +53,6 @@ export function renderModal({ poster_path, original_title, vote_average, vote_co
           <button class="btn-modal library__button " data-action="add-to-queue">add to queue</button>
         </div>
       </div>
-`
-    return markupModal;
+`;
+  return markupModal;
 }

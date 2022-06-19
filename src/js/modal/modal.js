@@ -1,4 +1,5 @@
 import * as filmsAPI from '../api/fetchFilms';
+
 import {genresModal} from '../modal/genresModal.js'
 import {onBackDropModalClose} from '../modal/modal-close.js';
 import {onBtnModalClose} from '../modal/modal-close.js';
@@ -13,7 +14,7 @@ let modalContainer = document.querySelector('.modal__container');
 const btnClose = document.querySelector('.js-modal-btn');
 const cardEl = document.querySelector('.gallery');
 cardEl.addEventListener('click', onClickCard);
-const sliderEl = document.querySelector('.swiper-wrapper')
+const sliderEl = document.querySelector('.swiper-wrapper');
 sliderEl.addEventListener('click', onClickCard);
 
 //object from localStorage
@@ -28,42 +29,45 @@ let localStorageFilmCard = {
   genres: '',
   overview: '',
   release_date: '',
+
 };
 
 export async function onClickCard(e) {
-
-    if (e.currentTarget===sliderEl) {
-        if (e.target.className !== 'slide-poster') {
-            return 
-        }
-    } else {
-        if (e.target.className !== 'gallery__item'
-            && e.target.className !== 'gallery__image'
-            && e.target.className !== 'gallery__title'
-            && e.target.className !== 'gallery__genres'
-            && e.target.className !== 'gallery__date'
-            && e.target.className !== 'gallery__vote') {
-        return 
-        }
+  if (e.currentTarget === sliderEl) {
+    if (e.target.className !== 'slide-poster') {
+      return;
     }
-    
-    backDrop.classList.remove("visually-hidden");
-
-    const id = document.querySelector('.gallery__item');
-    if (e.currentTarget===sliderEl) {
-        movieId = e.target.dataset.id;
-    } else {
-        if (e.target.className !== 'gallery__item') {
-            movieId = e.target.parentElement.dataset.id;
-        } else {
-            movieId = e.target.dataset.id;
-        }
+  } else {
+    if (
+      e.target.className !== 'gallery__item' &&
+      e.target.className !== 'gallery__image' &&
+      e.target.className !== 'gallery__title' &&
+      e.target.className !== 'gallery__genres' &&
+      e.target.className !== 'gallery__date' &&
+      e.target.className !== 'gallery__vote'
+    ) {
+      return;
     }
-    
-    //film on id
-    const filmsData = await filmsAPI.getOneMovieDetails(movieId);
-    genresModal(filmsData);
+  }
 
+  backDrop.classList.remove('visually-hidden');
+
+  const id = document.querySelector('.gallery__item');
+  if (e.currentTarget === sliderEl) {
+    movieId = e.target.dataset.id;
+  } else {
+    if (e.target.className !== 'gallery__item') {
+      movieId = e.target.parentElement.dataset.id;
+    } else {
+      movieId = e.target.dataset.id;
+    }
+  }
+
+
+   //film on id
+  const filmsData = await filmsAPI.getOneMovieDetails(movieId);
+  genresModal(filmsData);
+  
   const cardModal = renderModal(filmsData);
   
     modalContainer.insertAdjacentHTML('afterbegin', cardModal)
@@ -78,7 +82,7 @@ export async function onClickCard(e) {
     localStorageFilmCard.genres = filmsData.genres;
     localStorageFilmCard.overview = filmsData.overview;
     localStorageFilmCard.release_date = filmsData.release_date;
-
+  
   const btnList = document.querySelector('.button-modal');
 
   btnClose.addEventListener('click', onBtnModalClose);
