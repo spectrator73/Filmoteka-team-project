@@ -7,7 +7,12 @@ export function transformGenre(filmsData, genresList) {
                 const rigthID = genresList.find(genreFromList => genreFromList.id === id);
                 newGenre.push(rigthID.name);
             });
-            }
+        }
+        
+        if (film.genres) {
+            const genresArray = film.genres.split(',');
+            newGenre = [...genresArray];
+        }
             
         if (newGenre.length > 3) {
             const manyGenres = newGenre.slice(0, 2);

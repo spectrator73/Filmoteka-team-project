@@ -182,13 +182,19 @@
   }
 }
 
-.library {
+.library__button-wrap {
   display: flex;
   justify-content: center;
 }
 
 
-.library__btn {
+.button-wrap__button {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  background: none;
   margin-top: 64px;
   width: 148px;
   height: 42px;
@@ -210,7 +216,13 @@
   }
 }
 
-.library__btn:last-child {
+.button-wrap__button--active {
+  background: #ff6b01;
+  border-radius: 5px;
+  border: none;
+}
+
+.button-wrap__button:last-child {
   margin-left: 15px;
 
   @include mq(tablet-only) {
