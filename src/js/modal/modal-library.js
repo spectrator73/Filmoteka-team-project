@@ -62,10 +62,10 @@ export async function onClickCard(e) {
   genresModal(filmsData);
 
   const cardModal = renderModal(filmsData);
-  darkModalTheme();
 
   modalContainer.insertAdjacentHTML('afterbegin', cardModal);
-
+  darkModalTheme();
+  
   localStorageFilmCard.id = movieId;
   localStorageFilmCard.poster_path = `https://image.tmdb.org/t/p/original${filmsData.poster_path}`;
   localStorageFilmCard.original_title = filmsData.original_title;
