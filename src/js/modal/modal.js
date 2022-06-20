@@ -53,6 +53,7 @@ export async function onClickCard(e) {
 
   body.style.overflow = 'hidden';
   backDrop.classList.remove('visually-hidden');
+  
 
   const id = document.querySelector('.gallery__item');
   if (e.currentTarget === sliderEl) {
@@ -85,6 +86,8 @@ export async function onClickCard(e) {
   localStorageFilmCard.overview = filmsData.overview;
   localStorageFilmCard.release_date = filmsData.release_date;
 
+  const btnTrailer = document.querySelector('.trailerClick');
+  btnTrailer.addEventListener('click', onClick);
   const btnAddToWatch = document.querySelector('.button-modal');
   btnAddToWatch.addEventListener('click', onAddLibraryFilm);
   btnClose.addEventListener('click', onBtnModalClose);
@@ -104,4 +107,29 @@ export async function onAddLibraryFilm(e) {
     const localKey = 'queueFilms';
     addFilmsToLocal(film, localKey);
   }
+}
+
+const YOUTUBE_URL = 'https://www.youtube.com/embed/';
+const apiKey = "2ddded2d287329b6efbf335a6f8f3bd4";
+
+async function onClick() {
+  const box = document.querySelector('.video');
+  const videoId = localStorageFilmCard.id;
+  await fetch(`https://api.themoviedb.org/3/movie/${videoId}/videos?api_key=${apiKey}`)
+  .then(response => response.json())
+  .then(data => {
+    let key = ''
+    console.log(data.results);
+    data.results.forEach(item => {
+      if (item.name.includes('Official')) {
+        key = item.key
+      }
+    });
+    box.innerHTML = `<iframe
+        src="${YOUTUBE_URL}${key}?autoplay=0&mute=0&controls=1"
+       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+         allowfullscreen>
+        </iframe>
+      `;
+  })
 }
