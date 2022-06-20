@@ -6,4 +6,4 @@ import './js/pagination/libraryFilmsPagination';
 
 // import './js/api/trendingFilmRender';
 // import './js/api/searchFilmsByNameRender';
-// import './js/modal/modal';
+import './js/modal/modal-library';
