@@ -29,7 +29,7 @@
   }
   @include mq(mobile) {
     padding-top: 40px;
-    padding-bottom: 80px;
+    padding-bottom: 40px;
   }
 }
 .navigation {
@@ -178,7 +178,7 @@
 
   @include mq(mobile) {
     padding-top: 40px;
-    padding-bottom: 60px;
+    padding-bottom: 40px;
   }
 }
 
