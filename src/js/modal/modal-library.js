@@ -104,13 +104,20 @@ const YOUTUBE_URL = 'https://www.youtube.com/embed/';
 const apiKey = "2ddded2d287329b6efbf335a6f8f3bd4";
 
 async function onClick() {
+  const btnTrailer = document.querySelector('.trailerClick');
   const box = document.querySelector('.video');
+  if (box.classList.value === 'video aktive') {
+    btnTrailer.textContent = 'TRAILER';
+    box.classList.remove('aktive');
+    box.innerHTML = '';
+    return;
+  }
   const videoId = localStorageFilmCard.id;
   await fetch(`https://api.themoviedb.org/3/movie/${videoId}/videos?api_key=${apiKey}`)
   .then(response => response.json())
   .then(data => {
     let key = ''
-    console.log(data.results);
+    // console.log(data.results);
     data.results.forEach(item => {
       if (item.name.includes('Official')) {
         key = item.key
@@ -122,5 +129,7 @@ async function onClick() {
          allowfullscreen>
         </iframe>
       `;
+    box.classList.add('aktive');
+    btnTrailer.textContent= 'CLOSE TRAILER'
   })
 }
