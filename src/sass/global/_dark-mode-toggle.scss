@@ -1,4 +1,10 @@
+.dark-mode-toggle__container {
+  display: flex;
+  flex-direction: row-reverse;
+}
+  
   .dark-mode-toggle {
+    margin-top: 4px;
     width: 36px;
     height: 36px;
     display: flex;
