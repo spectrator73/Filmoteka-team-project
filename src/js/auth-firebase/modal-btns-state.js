@@ -10,12 +10,15 @@ export function manageBtnsState(id) {
   if (isMovieInWatchedList) {
     btnAddToWatched.removeAttribute('js_add');
     btnAddToWatched.setAttribute('js_del', 'watched');
-    // btnAddToWatched.style.backgroundColor = 'green';
+    btnAddToWatched.style.border = '2px solid';
+    btnAddToWatched.style.borderColor = 'red';
     btnAddToWatched.textContent = 'Delete from Watched ';
   } else {
     btnAddToWatched.removeAttribute('js_del');
     btnAddToWatched.setAttribute('js_add', 'watched');
-    // btnAddToWatched.style.backgroundColor = '';
+    btnAddToWatched.style.border = '';
+    btnAddToWatched.style.borderColor = '';
+
     btnAddToWatched.textContent = 'Add to Watched ';
   }
 
@@ -23,12 +26,14 @@ export function manageBtnsState(id) {
   if (isMovieInQueueList) {
     btnAddToQueue.removeAttribute('js_add');
     btnAddToQueue.setAttribute('js_del', 'queue');
-    // btnAddToQueue.style.backgroundColor = 'yellow';
+    btnAddToQueue.style.border = '2px solid';
+    btnAddToQueue.style.borderColor = 'red';
     btnAddToQueue.textContent = 'Delete from Queue';
   } else {
     btnAddToQueue.removeAttribute('js_del');
     btnAddToQueue.setAttribute('js_add', 'queue');
-    // btnAddToQueue.style.backgroundColor = '';
+    btnAddToQueue.style.border = '';
+    btnAddToQueue.style.borderColor = '';
     btnAddToQueue.textContent = 'Add to Queue';
   }
 }
