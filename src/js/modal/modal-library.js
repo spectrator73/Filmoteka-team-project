@@ -15,9 +15,8 @@ let modalContainer = document.querySelector('.modal__container');
 const btnClose = document.querySelector('.js-modal-btn');
 const cardEl = document.querySelector('.gallery');
 cardEl.addEventListener('click', onClickCard);
-const sliderEl = document.querySelector('.swiper-wrapper');
-sliderEl.addEventListener('click', onClickCard);
 const body = document.querySelector('body');
+const headerEl = document.querySelector('.header__library')
 
 //object from localStorage
 let localStorageFilmCard = {
@@ -34,11 +33,9 @@ let localStorageFilmCard = {
 };
 
 export async function onClickCard(e) {
-  if (e.currentTarget === sliderEl) {
-    if (e.target.className !== 'slide-poster') {
-      return;
-    }
-  } else {
+  if (!headerEl) {
+    return;
+  }
     if (
       e.target.className !== 'gallery__item' &&
       e.target.className !== 'gallery__image' &&
@@ -49,30 +46,25 @@ export async function onClickCard(e) {
     ) {
       return;
     }
-  }
-
+  
   body.style.overflow = 'hidden';
   backDrop.classList.remove('visually-hidden');
 
   const id = document.querySelector('.gallery__item');
-  if (e.currentTarget === sliderEl) {
-    movieId = e.target.dataset.id;
+  if (e.target.className !== 'gallery__item') {
+    movieId = e.target.parentElement.dataset.id;
   } else {
-    if (e.target.className !== 'gallery__item') {
-      movieId = e.target.parentElement.dataset.id;
-    } else {
-      movieId = e.target.dataset.id;
-    }
+    movieId = e.target.dataset.id;
   }
 
   //film on id
   const filmsData = await filmsAPI.getOneMovieDetails(movieId);
   genresModal(filmsData);
 
-  let cardModal = renderModal(filmsData);
-  
-  modalContainer.insertAdjacentHTML('afterbegin', cardModal);
+  const cardModal = renderModal(filmsData);
   darkModalTheme();
+
+  modalContainer.insertAdjacentHTML('afterbegin', cardModal);
 
   localStorageFilmCard.id = movieId;
   localStorageFilmCard.poster_path = `https://image.tmdb.org/t/p/original${filmsData.poster_path}`;
@@ -85,14 +77,14 @@ export async function onClickCard(e) {
   localStorageFilmCard.overview = filmsData.overview;
   localStorageFilmCard.release_date = filmsData.release_date;
 
-  const btnAddToWatch = document.querySelector('.button-modal');
-  btnAddToWatch.addEventListener('click', onAddLibraryFilm);
+  const btnList = document.querySelector('.button-modal');
   btnClose.addEventListener('click', onBtnModalClose);
   document.addEventListener('keydown', onEscapeModalClose);
   backDrop.addEventListener('click', onBackDropModalClose);
+  btnList.addEventListener('click', onAddLibraryFilm);
 }
 
-export async function onAddLibraryFilm(e) {
+async function onAddLibraryFilm(e) {
   const film = await localStorageFilmCard;
   if (e.target.nodeName !== 'BUTTON') {
     return;
