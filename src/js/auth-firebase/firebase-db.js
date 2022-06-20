@@ -11,6 +11,7 @@ const API = 'AIzaSyB6zHPU06WTT-Wfbp-gtmlww2BBH4EyQx0';
 
 export async function getDatafromFirebase() {
   const userDtbName = getUserDtbName();
+  let x = '';
   if (!userDtbName) {
     return;
   }
@@ -22,6 +23,7 @@ export async function getDatafromFirebase() {
         LocStorageMovies.clearMoviesLists();
         return;
       }
+
       const convertedData = convertDataFromFrbToLs(data);
       LocStorageMovies.setItem(convertedData);
     });
@@ -48,18 +50,18 @@ export async function postDataToFirebase(data) {
   });
 }
 
-// export function removeDataFromDb(id) {
-//   const userDtbName = getUserDtbName();
-//   if (!userDtbName) {
-//     return;
-//   }
-//   fetch(`${URL}/${userDtbName}/${id}.json`, {
-//     method: 'DELETE',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   });
-// }
+export async function removeDataFromDb(id) {
+  const userDtbName = getUserDtbName();
+  if (!userDtbName || !id) {
+    return;
+  }
+  return await fetch(`${URL}/${userDtbName}/${id}.json`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(response => response);
+}
 
 export function clearDtbFirebase() {
   const userDtbName = getUserDtbName();

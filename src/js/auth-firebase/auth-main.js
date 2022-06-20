@@ -2,6 +2,7 @@ import './auth-refs';
 import './auth-locstorage';
 import './firebase';
 import './database-refs';
+import './modal-btns-state';
 
 // import { getUserProfile, signOutOfFirebase } from './js/firebase';
 import {
@@ -17,7 +18,10 @@ import {
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 // import { checkUserAuthState, checkAuthUser } from './js/auth-state';
 // import { getMovieId } from './js/base';
-// import { removeDataFromDb } from './js/firebase-db';
+import {
+  getDatafromFirebase,
+  removeDataFromDb,
+} from '../auth-firebase/firebase-db';
 import { manageBtnsState } from '../auth-firebase/modal-btns-state';
 
 import { checkUserAuthState } from './auth-userstate';
@@ -49,23 +53,37 @@ checkUserAuthState();
 
 // ----Modified Version ------
 export async function onAddBtn(event, movieDetails) {
-  const jsAttrValue = event.target.attributes.js_add.value;
-  //   const value = getMovieValueState(jsAttrValue);
+  const jsAttr = event.target.attributes;
+  let jsAttrValue = '';
 
-  //   const movieDetails = getOneMovieDetails();
-  const isMovieInLs = LocStorageMovies.findMovieById(
-    movieDetails.id,
-    jsAttrValue
-  );
-  if (isMovieInLs) {
-    Notify.failure('This movie is already in the library.');
-    return;
+  if (jsAttr.js_del) {
+    jsAttrValue = jsAttr.js_del.value;
+    const frbKey = LocStorageMovies.getFrbKeyByMovieId(
+      movieDetails.id,
+      jsAttrValue
+    );
+    await removeDataFromDb(frbKey);
+    console.log('Приход ответа по удалению');
+    getDatafromFirebase();
+  } else {
+    jsAttrValue = jsAttr.js_add.value;
+
+    const isMovieInLs = LocStorageMovies.findMovieById(
+      movieDetails.id,
+      jsAttrValue
+    );
+    if (isMovieInLs) {
+      Notify.failure('This movie is already in the library.');
+      return;
+    }
+
+    movieDetails.preftype = jsAttrValue;
+    await postDataToFirebase(movieDetails);
+    await getDatafromFirebase();
   }
+  console.log('Конец функции');
 
-  movieDetails.preftype = jsAttrValue;
-  await postDataToFirebase(movieDetails);
-  await getDatafromFirebase();
-  manageBtnsState(movieDetails.id);
+  setTimeout(() => manageBtnsState(movieDetails.id), 100);
 }
 
 // function onQueueWatchedBtn(event) {

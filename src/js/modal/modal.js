@@ -9,6 +9,7 @@ import { addFilmsToLocal } from '../local-storage/addDataToLocalStorage';
 import { darkModalTheme } from '../modal/modal-dark.js';
 import { checkAuthUser } from '../auth-firebase/auth-userstate';
 import { onAddBtn } from '../auth-firebase/auth-main';
+import { manageBtnsState } from '../auth-firebase/modal-btns-state';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 let movieId = '';
@@ -93,6 +94,7 @@ export async function onClickCard(e) {
   btnClose.addEventListener('click', onBtnModalClose);
   document.addEventListener('keydown', onEscapeModalClose);
   backDrop.addEventListener('click', onBackDropModalClose);
+  manageBtnsState(movieId);
 }
 
 // export async function onAddLibraryFilm(e) {
@@ -127,12 +129,4 @@ export async function onAddLibraryFilm(e) {
   }
 
   onAddBtn(e, movieDetails);
-
-  // if (e.target.dataset.action === 'add-to-watched') {
-  //   const localKey = 'watchedFilms';
-  //   addFilmsToLocal(film, localKey);
-  // } else {
-  //   const localKey = 'queueFilms';
-  //   addFilmsToLocal(film, localKey);
-  // }
 }
