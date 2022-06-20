@@ -1,5 +1,6 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { LocStorage } from './auth-locstorage';
+// import { LocStorageMovies, convertDataFromFrbToLs } from './locstr-movies';
 
 const URL =
   'https://filmoteka-project2-default-rtdb.europe-west1.firebasedatabase.app';
@@ -14,12 +15,14 @@ export function getDatafromFirebase() {
     .then(response => response.json())
     .then(data => {
       if (!data) {
-        Notify.failure('Your database is EMPTY. Push the POST data button.');
+        Notify.failure('Your database is EMPTY.');
         return;
       }
 
-      Notify.success('To see your data, open DevTools/Console.');
-      console.log(data);
+      const convertedData = convertDataFromFrbToLs(data);
+      LocStorageMovies.setItem(convertedData);
+
+      Notify.success('Your database is UPDATED');
     });
 }
 
@@ -40,9 +43,22 @@ export function postDataToFirebase() {
       return;
     }
 
-    Notify.success('Your database is updated. Push the GET data button.');
+    Notify.success('Your database is updated.');
   });
 }
+
+// export function removeDataFromDb(id) {
+//   const userDtbName = getUserDtbName();
+//   if (!userDtbName) {
+//     return;
+//   }
+//   fetch(`${URL}/${userDtbName}/${id}.json`, {
+//     method: 'DELETE',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   });
+// }
 
 export function clearDtbFirebase() {
   const userDtbName = getUserDtbName();
