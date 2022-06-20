@@ -1,6 +1,7 @@
 import './auth-refs';
 import './auth-locstorage';
 import './firebase';
+import './database-refs';
 
 // import { getUserProfile, signOutOfFirebase } from './js/firebase';
 // import {
