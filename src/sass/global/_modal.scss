@@ -26,6 +26,9 @@
     background-color: var(--main-bcg-color);
     min-height: 400px;
     max-width: 280px;
+    border-radius: var(--border-radius);
+    transition: transform var(--transition-time);
+    transform: scale(1);
 
     @include mq(tablet) {
         max-width: 704px;
@@ -33,6 +36,10 @@
 
     @include mq(desktop) {
         max-width: 814px;
+    }
+    &:hover{
+        transform: scale(1.01);
+        transition: transform var(--transition-time);
     }
 }
 
@@ -47,6 +54,7 @@
     justify-content: center;
     align-items: center;
     padding: 0;
+    border-radius: var(--border-radius);
     border: 2px solid var(--main-bcg-color);
 
     color: var(--text-main-color);
@@ -56,6 +64,8 @@
 
     &:hover {
             color: #f11d1d;
+            border: solid 2px #f11d1d;
+            transition: transform var(--transition-time);
         }
 }
 
@@ -209,11 +219,17 @@
 
     &:hover {
         background-color: #f11d1d;
+        border: solid 1px #fff;
     }
+}
+
+.button-modal{
+    display: flex;
 }
 
 .modal__btn-active{
     background: var(--pre-accent-color);
     border: none;
     color: #fff;
+    margin-left: 0;
 }
