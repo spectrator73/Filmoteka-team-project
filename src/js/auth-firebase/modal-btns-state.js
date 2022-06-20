@@ -1,12 +1,14 @@
 import { LocStorageMovies } from '../auth-firebase/locstr-movies';
 
-export function manageBtnsState(id) {
-  console.log('Это менедж');
+export async function manageBtnsState(id) {
   const btnAddToWatched = document.querySelector(
     '[data-action="add-to-watched"]'
   );
   const btnAddToQueue = document.querySelector('[data-action="add-to-queue"]');
-  const isMovieInWatchedList = LocStorageMovies.findMovieById(id, 'watched');
+  const isMovieInWatchedList = await LocStorageMovies.findMovieById(
+    id,
+    'watched'
+  );
   if (isMovieInWatchedList) {
     btnAddToWatched.removeAttribute('js_add');
     btnAddToWatched.setAttribute('js_del', 'watched');
@@ -22,7 +24,7 @@ export function manageBtnsState(id) {
     btnAddToWatched.textContent = 'Add to Watched ';
   }
 
-  const isMovieInQueueList = LocStorageMovies.findMovieById(id, 'queue');
+  const isMovieInQueueList = await LocStorageMovies.findMovieById(id, 'queue');
   if (isMovieInQueueList) {
     btnAddToQueue.removeAttribute('js_add');
     btnAddToQueue.setAttribute('js_del', 'queue');

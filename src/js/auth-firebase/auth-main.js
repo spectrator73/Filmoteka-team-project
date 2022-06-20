@@ -63,8 +63,7 @@ export async function onAddBtn(event, movieDetails) {
       jsAttrValue
     );
     await removeDataFromDb(frbKey);
-    console.log('Приход ответа по удалению');
-    getDatafromFirebase();
+    await getDatafromFirebase();
   } else {
     jsAttrValue = jsAttr.js_add.value;
 
@@ -81,7 +80,6 @@ export async function onAddBtn(event, movieDetails) {
     await postDataToFirebase(movieDetails);
     await getDatafromFirebase();
   }
-  console.log('Конец функции');
 
   setTimeout(() => manageBtnsState(movieDetails.id), 100);
 }
