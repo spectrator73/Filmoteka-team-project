@@ -6,7 +6,10 @@ import { onBtnModalClose } from '../modal/modal-close.js';
 import { onEscapeModalClose } from '../modal/modal-close.js';
 import { renderModal } from '../modal/renderModalHome';
 import { addFilmsToLocal } from '../local-storage/addDataToLocalStorage';
-import { darkModalTheme } from "../modal/modal-dark.js";
+import { darkModalTheme } from '../modal/modal-dark.js';
+import { checkAuthUser } from '../auth-firebase/auth-userstate';
+import { onAddBtn } from '../auth-firebase/auth-main';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 let movieId = '';
 
@@ -70,7 +73,7 @@ export async function onClickCard(e) {
   genresModal(filmsData);
 
   let cardModal = renderModal(filmsData);
-  
+
   modalContainer.insertAdjacentHTML('afterbegin', cardModal);
   darkModalTheme();
 
@@ -92,16 +95,44 @@ export async function onClickCard(e) {
   backDrop.addEventListener('click', onBackDropModalClose);
 }
 
+// export async function onAddLibraryFilm(e) {
+//   const film = await localStorageFilmCard;
+//   if (e.target.nodeName !== 'BUTTON') {
+//     return;
+//   }
+//   if (e.target.dataset.action === 'add-to-watched') {
+//     const localKey = 'watchedFilms';
+//     addFilmsToLocal(film, localKey);
+//   } else {
+//     const localKey = 'queueFilms';
+//     addFilmsToLocal(film, localKey);
+//   }
+// }
+
+// ------Modified version onAddLibraryFilm by Oleh------
 export async function onAddLibraryFilm(e) {
-  const film = await localStorageFilmCard;
+  // const film = await localStorageFilmCard;
+  const isUserAuthorised = checkAuthUser();
+  if (!isUserAuthorised) {
+    Notify.failure(
+      '"You are not authorized. Please sign in to your account or register."'
+    );
+    return;
+  }
+
+  const movieDetails = await localStorageFilmCard;
+
   if (e.target.nodeName !== 'BUTTON') {
     return;
   }
-  if (e.target.dataset.action === 'add-to-watched') {
-    const localKey = 'watchedFilms';
-    addFilmsToLocal(film, localKey);
-  } else {
-    const localKey = 'queueFilms';
-    addFilmsToLocal(film, localKey);
-  }
+
+  onAddBtn(e, movieDetails);
+
+  // if (e.target.dataset.action === 'add-to-watched') {
+  //   const localKey = 'watchedFilms';
+  //   addFilmsToLocal(film, localKey);
+  // } else {
+  //   const localKey = 'queueFilms';
+  //   addFilmsToLocal(film, localKey);
+  // }
 }

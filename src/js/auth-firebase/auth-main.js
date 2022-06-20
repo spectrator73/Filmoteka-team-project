@@ -4,17 +4,21 @@ import './firebase';
 import './database-refs';
 
 // import { getUserProfile, signOutOfFirebase } from './js/firebase';
-// import {
-//   getDatafromFirebase,
-//   postDataToFirebase,
-//   clearDtbFirebase,
-// } from './js/firebase-db';
-// import { LocStorageMovies, checkMovieInLs } from './js/locstr-movies';
+import {
+  getDatafromFirebase,
+  postDataToFirebase,
+  clearDtbFirebase,
+} from '../auth-firebase/firebase-db';
+import {
+  LocStorageMovies,
+  checkMovieInLs,
+} from '../auth-firebase/locstr-movies';
 // import { renderMoviesList } from './js/render-list';
-// import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 // import { checkUserAuthState, checkAuthUser } from './js/auth-state';
 // import { getMovieId } from './js/base';
 // import { removeDataFromDb } from './js/firebase-db';
+import { manageBtnsState } from '../auth-firebase/modal-btns-state';
 
 import { checkUserAuthState } from './auth-userstate';
 
@@ -27,15 +31,8 @@ checkUserAuthState();
 // refs.btnDelFromWatched.addEventListener('click', onBtnDel);
 // refs.btnDelFromQueue.addEventListener('click', onBtnDel);
 
-// function onAddBtn(event) {
-//   const isUserAuthorised = checkAuthUser();
-//   if (!isUserAuthorised) {
-//     Notify.failure(
-//       '"You are not authorized. Please sign in to your account or register."'
-//     );
-//     return;
-//   }
-
+// ----Old Version ------
+// export function onAddBtn(event) {
 //   const jsAttrValue = event.target.attributes.js_add.value;
 //   const value = getMovieValueState(jsAttrValue);
 
@@ -49,6 +46,27 @@ checkUserAuthState();
 //   movieDetails.preftype = value;
 //   postDataToFirebase(movieDetails);
 // }
+
+// ----Modified Version ------
+export async function onAddBtn(event, movieDetails) {
+  const jsAttrValue = event.target.attributes.js_add.value;
+  //   const value = getMovieValueState(jsAttrValue);
+
+  //   const movieDetails = getOneMovieDetails();
+  const isMovieInLs = LocStorageMovies.findMovieById(
+    movieDetails.id,
+    jsAttrValue
+  );
+  if (isMovieInLs) {
+    Notify.failure('This movie is already in the library.');
+    return;
+  }
+
+  movieDetails.preftype = jsAttrValue;
+  await postDataToFirebase(movieDetails);
+  await getDatafromFirebase();
+  manageBtnsState(movieDetails.id);
+}
 
 // function onQueueWatchedBtn(event) {
 //   const isUserAuthorised = checkAuthUser();

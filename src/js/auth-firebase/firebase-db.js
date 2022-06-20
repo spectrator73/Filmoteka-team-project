@@ -1,39 +1,40 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { LocStorage } from './auth-locstorage';
-// import { LocStorageMovies, convertDataFromFrbToLs } from './locstr-movies';
+import {
+  LocStorageMovies,
+  convertDataFromFrbToLs,
+} from '../auth-firebase/locstr-movies';
 
 const URL =
   'https://filmoteka-project2-default-rtdb.europe-west1.firebasedatabase.app';
 const API = 'AIzaSyB6zHPU06WTT-Wfbp-gtmlww2BBH4EyQx0';
 
-export function getDatafromFirebase() {
+export async function getDatafromFirebase() {
   const userDtbName = getUserDtbName();
   if (!userDtbName) {
     return;
   }
-  fetch(`${URL}/${userDtbName}.json`)
+  await fetch(`${URL}/${userDtbName}.json`)
     .then(response => response.json())
     .then(data => {
       if (!data) {
         Notify.failure('Your database is EMPTY.');
+        LocStorageMovies.clearMoviesLists();
         return;
       }
-
       const convertedData = convertDataFromFrbToLs(data);
       LocStorageMovies.setItem(convertedData);
-
-      Notify.success('Your database is UPDATED');
     });
 }
 
-export function postDataToFirebase() {
+export async function postDataToFirebase(data) {
   const userDtbName = getUserDtbName();
   if (!userDtbName) {
     return;
   }
-  fetch(`${URL}/${userDtbName}.json`, {
+  await fetch(`${URL}/${userDtbName}.json`, {
     method: 'POST',
-    body: JSON.stringify(LocStorage.getItem()),
+    body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
     },
@@ -43,7 +44,7 @@ export function postDataToFirebase() {
       return;
     }
 
-    Notify.success('Your database is updated.');
+    // Notify.success('Your database is updated. Push the GET data button.');
   });
 }
 

@@ -27,6 +27,7 @@ export class LocStorageMovies {
         JSON.stringify(arrOfWatchedMoviesList)
       );
     }
+    // Notify.success('Your database is UPDATED');
   }
 
   static findMovieById(id, value) {
@@ -34,12 +35,19 @@ export class LocStorageMovies {
     if (!movieList) {
       return null;
     }
-    const filteredMovieListById = movieList.filter(item => item.id === id);
-    if (filteredMovieListById.length > 0) {
+    const filteredMovieListById = movieList.find(item => item.id === id);
+    if (filteredMovieListById) {
       return true;
     } else {
       return null;
     }
+
+    // const filteredMovieListById = movieList.filter(item => item.id === id);
+    // if (filteredMovieListById.length > 0) {
+    //   return true;
+    // } else {
+    //   return null;
+    // }
   }
 
   static getMoviesList(value) {
