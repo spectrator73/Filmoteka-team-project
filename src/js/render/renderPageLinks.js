@@ -3,6 +3,8 @@ const dots = `<span>...</span>`;
 
 const refs = {
   linkList: document.querySelector('.pages-list'),
+  btnNext: document.querySelector('button[data-action="next"]'),
+  btnPrev: document.querySelector('button[data-action="prev"]'),
 };
 
 export function renderController(pageNumber, totalPages) {
@@ -16,8 +18,6 @@ export function renderController(pageNumber, totalPages) {
 }
 
 export function fisrtrButtonsRender(pageNumber, totalPages) {
-  console.log(pageNumber);
-  console.log(totalPages);
   refs.linkList.innerHTML = '';
   let pages = [];
   for (let i = 1; i <= totalPages; i++) {
@@ -33,6 +33,8 @@ export function fisrtrButtonsRender(pageNumber, totalPages) {
   }
   refs.linkList.insertAdjacentHTML('beforeend', buttonsMarkup.join(''));
   document.querySelector(`#item${pageNumber}`).classList.add('active');
+  refs.btnNext.classList.remove('button-hidden');
+  refs.btnPrev.classList.remove('button-hidden');
 }
 
 function dynamicButtonsRender(pageNumber, totalPages) {

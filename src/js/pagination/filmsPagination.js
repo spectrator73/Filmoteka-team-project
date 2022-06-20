@@ -2,7 +2,7 @@ import * as filmsAPI from '../api/fetchFilms.js';
 import {
   renderController,
   hideNextBtn,
-  hidePrevBtn
+  hidePrevBtn,
 } from '../render/renderPageLinks';
 import { onTrendingFilmsRender } from '../api/trendingFilmRender';
 import { renderMarkup } from '../api/searchFilmsByNameRender';
@@ -11,13 +11,12 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 let savedPageNumber = JSON.parse(sessionStorage.getItem('mainPageNumber'));
 let pageNumber = 1;
 
-!savedPageNumber
-  ? pageNumber = 1
-  : pageNumber = savedPageNumber;
+!savedPageNumber ? (pageNumber = 1) : (pageNumber = savedPageNumber);
 
 let totalPages = 20;
 let searchQuery = null;
 let prevSearchQuery = null;
+let trendingMovies = false;
 
 const refs = {
   linkList: document.querySelector('.pages-list'),
@@ -38,6 +37,7 @@ export function getQuery(query) {
     renderController(pageNumber, totalPages);
     trendingMoviesRender();
   } else {
+    pageNumber = 1;
     getTotalPages();
   }
   hidePrevBtn(refs.btnPrev, pageNumber);
@@ -47,27 +47,29 @@ async function getTotalPages() {
   const data = await filmsAPI.searchMovies(searchQuery, pageNumber);
 
   if (!data.results.length) {
-    return Notify.failure('Sorry, there are no films matching your search query. Please try again.');
+    return Notify.failure(
+      'Sorry, there are no films matching your search query. Please try again.'
+    );
   }
   const { total_pages, results } = data;
   totalPages = total_pages;
   prevSearchQuery = searchQuery;
   renderController(pageNumber, totalPages);
-  
+
   renderMarkup(results);
 }
 
 async function trendingMoviesRender() {
+  trendingMovies = true;
   const data = await filmsAPI.fetchTrending(pageNumber);
   onTrendingFilmsRender(data);
 }
 
 async function fetchController() {
   if (!searchQuery) {
+    trendingMoviesPage = pageNumber;
     trendingMoviesRender();
-  }
-
-  else {
+  } else {
     try {
       const data = await filmsAPI.searchMovies(searchQuery, pageNumber);
       const { results } = data;
@@ -76,19 +78,22 @@ async function fetchController() {
       }
       if (!results.length && !prevSearchQuery) {
         trendingMoviesRender();
-        return
+        return;
       }
       if (!results.length && prevSearchQuery) {
         const data = await filmsAPI.searchMovies(prevSearchQuery, pageNumber);
         const { results } = data;
         renderMarkup(results);
-        return
+        return;
       }
-        renderMarkup(results);
+      trendingMovies = false;
+      if (sessionStorage.getItem('mainPageNumber') && !trendingMovies) {
+        sessionStorage.removeItem('mainPageNumber');
+      }
+      renderMarkup(results);
+    } catch (error) {
+      console.log(error.message);
     }
-    catch (error) {
-    console.log(error.message);
-  }
   }
   hideNextBtn(refs.btnNext, pageNumber, totalPages);
   hidePrevBtn(refs.btnPrev, pageNumber);
@@ -98,7 +103,9 @@ async function fetchController() {
 export async function filmsPagination(e) {
   const btnNumber = e.target.textContent;
   pageNumber = +btnNumber;
-  sessionStorage.setItem('mainPageNumber', JSON.stringify(pageNumber));
+  if (trendingMovies) {
+    sessionStorage.setItem('mainPageNumber', JSON.stringify(pageNumber));
+  }
   fetchController();
   renderController(pageNumber, totalPages);
 }
@@ -108,7 +115,9 @@ async function pageIncrement() {
     return;
   }
   pageNumber += 1;
-  sessionStorage.setItem('mainPageNumber', JSON.stringify(pageNumber));
+  if (trendingMovies) {
+    sessionStorage.setItem('mainPageNumber', JSON.stringify(pageNumber));
+  }
   fetchController();
   const data = await filmsAPI.fetchTrending(pageNumber);
   onTrendingFilmsRender(data);
@@ -120,7 +129,9 @@ async function pageDecrement() {
     return;
   }
   pageNumber -= 1;
-  sessionStorage.setItem('mainPageNumber', JSON.stringify(pageNumber));
+  if (trendingMovies) {
+    sessionStorage.setItem('mainPageNumber', JSON.stringify(pageNumber));
+  }
   fetchController();
   const data = await filmsAPI.fetchTrending(pageNumber);
   onTrendingFilmsRender(data);

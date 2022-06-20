@@ -21,6 +21,7 @@
 .section {
   padding-top: 20px;
   padding-bottom: 40px;
+  text-align: center;
 
   @include mq(tablet) {
     padding-top: 60px;
@@ -47,6 +48,7 @@
     border-radius: var(--border-radius);
     cursor: pointer;
     background-color: var(--second-bcg-color);
+    stroke: rgb(0, 0, 0);
 
     @include mq(mobile-only) {
         width: 20vw;
@@ -55,8 +57,14 @@
   }
 
   & span {
+    margin: 0 1px;
     text-align: center;
     padding-bottom: 8px;
+    background-color: #fff;
+  }
+
+  & span.active {
+    color: var(--second-bcg-color);
   }
 }
 
@@ -66,7 +74,7 @@
 
 .page-navigation-button__icon {
   fill-opacity: 0;
-  stroke: rgb(0, 0, 0);
+  stroke: inherit;
   @include mq(mobile-only) {
       width: 10vw;
       height: 5vh;

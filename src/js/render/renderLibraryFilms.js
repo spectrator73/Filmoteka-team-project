@@ -8,11 +8,15 @@ const genresList = genresJson['genres'];
 const refs = {
   gallery: document.querySelector('.gallery'),
   section: document.querySelector('.section'),
+  btnNext: document.querySelector('button[data-action="next"]'),
+  btnPrev: document.querySelector('button[data-action="prev"]'),
 };
 
-const emptyStorageNotification = '<h2>Нет добавленых фильмов</h2>';
+const emptyStorageNotification = '<h2 class="library-title">Нет добавленых фильмов</h2>';
 
 export const libraryFilmsRender = filmsData => {
+  refs.btnNext.classList.remove('button-hidden');
+  refs.btnPrev.classList.remove('button-hidden');
   if(refs.section.firstChild.textContent === 'Нет добавленых фильмов' && filmsData) {
     const title = document.querySelector('h2');
     title.remove();
