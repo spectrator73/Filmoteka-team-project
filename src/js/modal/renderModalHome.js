@@ -14,6 +14,8 @@ export function renderModal({
       />
       <div class="about">
         <h2 class="about__title">${original_title}</h2>
+        <button class="trailerClick modal__btn-active btn modal__btn">TRAILER</button>
+        <div class="video"></div>
         <ul class="about__list">
           <li class="about__item">
             <p class="about__item-key">Vote / Votes</p>

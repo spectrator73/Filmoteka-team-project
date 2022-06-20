@@ -1,13 +1,17 @@
 import axios from 'axios';
+import Loading from './loader';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const KEY = '?api_key=2ddded2d287329b6efbf335a6f8f3bd4';
 
 async function fetchFilms(url) {
+  Loading.arrows();
   try {
     const response = await axios.get(url);
+    Loading.remove();
     console.log(response.data);
     return response.data;
   } catch (error) {
+    Loading.remove();
     console.log(error.message);
   }
 }

@@ -3,15 +3,18 @@ import team from '../api/team.json';
 import * as basicLightbox from 'basiclightbox';
 import 'basicLightbox/src/styles/main.scss';
 import showConfetti from './confetti';
+import Loading from '../api/loader';
 
 const modalContainer = document.querySelector('#js-team-modal');
 modalContainer.addEventListener('click', openModal);
 
 function openModal(e) {
+  Loading.arrows();
   e.preventDefault();
   showConfetti();
 
   try {
+    Loading.remove();
     getTeamInfo(team);
   } catch (error) {
     errorModal();
@@ -42,3 +45,5 @@ function getTeamInfo(teamId) {
     btnCloseRef.removeEventListener('click', closeModalbyBtn);
   }
 }
+
+
