@@ -11,6 +11,7 @@ modalContainer.addEventListener('click', openModal);
 function openModal(e) {
   Loading.arrows();
   e.preventDefault();
+  document.body.classList.add('team-modal-is-open');
   showConfetti();
 
   try {
@@ -33,7 +34,7 @@ function getTeamInfo(teamId) {
   function closeModalByEsc(e) {
     if (e.code === 'Escape') {
       modalContent.close();
-
+      document.body.classList.remove('team-modal-is-open');
       window.removeEventListener('keydown', closeModalByEsc);
     }
   }
@@ -41,7 +42,7 @@ function getTeamInfo(teamId) {
   btnCloseRef.addEventListener('click', closeModalbyBtn);
   function closeModalbyBtn() {
     modalContent.close();
-
+    document.body.classList.remove('team-modal-is-open');
     btnCloseRef.removeEventListener('click', closeModalbyBtn);
   }
 }

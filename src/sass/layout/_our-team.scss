@@ -1,3 +1,7 @@
+body.team-modal-is-open {
+  overflow: hidden;
+}
+
 .team__container {
   overflow-y: scroll;
   background-color: var(--text-second-color);
