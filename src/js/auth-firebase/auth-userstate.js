@@ -5,7 +5,6 @@ import { signOutOfFirebase } from './firebase';
 
 import { getDatafromFirebase } from '../auth-firebase/firebase-db';
 import { LocStorageMovies } from '../auth-firebase/locstr-movies';
-// import { clearRenderMoviesList } from './render-movie-list';
 
 export function checkUserAuthState() {
   const userData = LocStorage.getItem();
@@ -40,7 +39,6 @@ function onBtnSignOutClick() {
   LocStorage.removeItem();
   checkUserAuthState();
   LocStorageMovies.clearMoviesLists();
-  // clearRenderMoviesList();
 }
 
 export function checkAuthUser() {

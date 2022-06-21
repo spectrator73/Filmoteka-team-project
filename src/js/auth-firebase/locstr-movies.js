@@ -41,13 +41,6 @@ export class LocStorageMovies {
     } else {
       return null;
     }
-
-    // const filteredMovieListById = movieList.filter(item => item.id === id);
-    // if (filteredMovieListById.length > 0) {
-    //   return true;
-    // } else {
-    //   return null;
-    // }
   }
 
   static getMoviesList(value) {
