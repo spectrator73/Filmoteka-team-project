@@ -1,4 +1,7 @@
-import { onAddLibraryFilm } from "../modal/modal-library.js";
+import { onAddLibraryFilm } from '../modal/modal-library.js';
+// added by Oleh ------------------------------------------
+import { categoryRender } from '../pagination/libraryFilmsPagination';
+// -----------------------------------------------------------
 const backDrop = document.querySelector('.backdrop');
 const btnClose = document.querySelector('.js-modal-btn');
 const btnAddToWatch = document.querySelector('.button-modal');
@@ -13,6 +16,12 @@ function removeListener() {
   document.removeEventListener('keydown', onEscapeModalClose);
   // btnAddToWatch.removeEventListener('click', onAddLibraryFilm);
   btnClose.removeEventListener('click', onBtnModalClose);
+
+  // added by Oleh ------------------------------------------
+  if (document.querySelector('.header__library')) {
+    categoryRender();
+  }
+  // -----------------------------------------------------------
 }
 export function onBackDropModalClose(e) {
   if (e.target.className !== 'backdrop js-modal') {

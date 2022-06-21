@@ -1,36 +1,42 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { LocStorage } from './auth-locstorage';
+import {
+  LocStorageMovies,
+  convertDataFromFrbToLs,
+} from '../auth-firebase/locstr-movies';
 
 const URL =
   'https://filmoteka-project2-default-rtdb.europe-west1.firebasedatabase.app';
 const API = 'AIzaSyB6zHPU06WTT-Wfbp-gtmlww2BBH4EyQx0';
 
-export function getDatafromFirebase() {
+export async function getDatafromFirebase() {
   const userDtbName = getUserDtbName();
+  let x = '';
   if (!userDtbName) {
     return;
   }
-  fetch(`${URL}/${userDtbName}.json`)
+  await fetch(`${URL}/${userDtbName}.json`)
     .then(response => response.json())
     .then(data => {
       if (!data) {
-        Notify.failure('Your database is EMPTY. Push the POST data button.');
+        Notify.failure('Your database is EMPTY.');
+        LocStorageMovies.clearMoviesLists();
         return;
       }
 
-      Notify.success('To see your data, open DevTools/Console.');
-      console.log(data);
+      const convertedData = convertDataFromFrbToLs(data);
+      LocStorageMovies.setItem(convertedData);
     });
 }
 
-export function postDataToFirebase() {
+export async function postDataToFirebase(data) {
   const userDtbName = getUserDtbName();
   if (!userDtbName) {
     return;
   }
-  fetch(`${URL}/${userDtbName}.json`, {
+  await fetch(`${URL}/${userDtbName}.json`, {
     method: 'POST',
-    body: JSON.stringify(LocStorage.getItem()),
+    body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
     },
@@ -40,8 +46,21 @@ export function postDataToFirebase() {
       return;
     }
 
-    Notify.success('Your database is updated. Push the GET data button.');
+    // Notify.success('Your database is updated. Push the GET data button.');
   });
+}
+
+export async function removeDataFromDb(id) {
+  const userDtbName = getUserDtbName();
+  if (!userDtbName || !id) {
+    return;
+  }
+  return await fetch(`${URL}/${userDtbName}/${id}.json`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then(response => response);
 }
 
 export function clearDtbFirebase() {

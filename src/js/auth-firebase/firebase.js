@@ -87,7 +87,3 @@ export function getUserProfile() {
     });
   }
 }
-
-// getUserProfile();
-// updateUserProfile();
-// signOutOfFirebase();
