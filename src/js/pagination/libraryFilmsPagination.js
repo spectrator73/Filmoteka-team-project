@@ -12,14 +12,22 @@ const refs = {
   btnNext: document.querySelector('button[data-action="next"]'),
   btnPrev: document.querySelector('button[data-action="prev"]'),
   navList: document.querySelector('.page-navigation'),
+  // added by Oleh --------------------------------------------
+  btnActive: document.querySelector('.button-wrap__button--active'),
+  // -----------------------------------------------------------
 };
 
-refs.btnList.addEventListener('click', categoryRender);
+// added by Oleh --------------------------------------------
+if (document.querySelector('.header__library')) {
+  refs.btnList.addEventListener('click', categoryRender);
+}
+// -----------------------------------------------------------
 refs.linkList.addEventListener('click', pageController);
 refs.btnNext.addEventListener('click', pageIncrement);
 refs.btnPrev.addEventListener('click', pageDecrement);
 
-const watchedFilms = localStorage.getItem('watchedFilms');
+// const watchedFilms = localStorage.getItem('watchedFilms');
+const watchedFilms = localStorage.getItem('watchedList');
 const parsedWatchedFilms = JSON.parse(watchedFilms);
 
 let savedPageNumber = JSON.parse(sessionStorage.getItem('libraryPageNumber'));
@@ -71,19 +79,33 @@ function firstRender(filmsData) {
   data = filmsData;
 }
 
-function categoryRender(e) {
-  if (e.target.dataset.category === 'watched') {
-    const watchedFilms = localStorage.getItem('watchedFilms');
+export function categoryRender(e) {
+  // if (check || e.target.dataset.category === 'watched')  // commented by Oleh ------
+  if (
+    refs.btnActive.classList.contains('button-wrap__button--active') && // added by Oleh ------
+    refs.btnActive.hasAttribute('data-category', 'watched') // added by Oleh ------
+  ) {
+    // const watchedFilms = localStorage.getItem('watchedFilms');
+    const watchedFilms = localStorage.getItem('watchedList');
     const parsedWatchedFilms = JSON.parse(watchedFilms);
     data = parsedWatchedFilms;
-    let savedPageNumber = JSON.parse(sessionStorage.getItem('libraryPageNumber'));
+    // added by Oleh -------------
+    if (!data) {
+      firstRender(data);
+      return;
+    }
+    // --------------------------
+    let savedPageNumber = JSON.parse(
+      sessionStorage.getItem('libraryPageNumber')
+    );
     !savedPageNumber ? (pageNumber = 1) : (pageNumber = savedPageNumber);
     totalPagesCalculator(parsedWatchedFilms);
     filmsPagination();
   } else {
     pageNumber = 1;
     // sessionStorage.removeItem('libraryPageNumber');
-    const queueFilms = localStorage.getItem('queueFilms');
+    // const queueFilms = localStorage.getItem('queueFilms');
+    const queueFilms = localStorage.getItem('queueList');
     const parsedQueueFilms = JSON.parse(queueFilms);
     data = parsedQueueFilms;
     firstRender(data);
@@ -99,15 +121,17 @@ function totalPagesCalculator(dataArray) {
   renderController(pageNumber, totalPages);
 }
 
-function filmsPagination() {
+export function filmsPagination() {
   filteredData = [];
-  if (pageNumber === 1) {
-    for (let i = 0; i < 20; i++) {
-      filteredData.push(data[i]);
-    }
-    window.scrollTo(0, 0);
-    libraryFilmsRender(filteredData);
-  }
+  // Commented by Oleh ------------------
+  // if (pageNumber === 1) {
+  //   for (let i = 0; i < 20; i++) {
+  //     filteredData.push(data[i]);
+  //   }
+  //   window.scrollTo(0, 0);
+  //   libraryFilmsRender(filteredData);
+  // }
+  // --------------------------------------
   if (pageNumber === 1 && totalPages === 1) {
     for (let i = 0; i < data.length; i++) {
       filteredData.push(data[i]);

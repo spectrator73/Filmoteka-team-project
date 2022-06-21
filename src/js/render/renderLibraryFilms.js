@@ -13,7 +13,15 @@ const refs = {
 const emptyStorageNotification = '<h2>Нет добавленых фильмов</h2>';
 
 export const libraryFilmsRender = filmsData => {
-  if(refs.section.firstChild.textContent === 'Нет добавленых фильмов' && filmsData) {
+  // added by Oleh -------------------------------------
+  if (!document.querySelector('.header__library')) {
+    return;
+  }
+  //  -------------------------------------------------------
+  if (
+    refs.section.firstChild.textContent === 'Нет добавленых фильмов' &&
+    filmsData
+  ) {
     const title = document.querySelector('h2');
     title.remove();
   }
