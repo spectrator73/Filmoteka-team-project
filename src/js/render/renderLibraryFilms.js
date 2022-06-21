@@ -8,9 +8,12 @@ const genresList = genresJson['genres'];
 const refs = {
   gallery: document.querySelector('.gallery'),
   section: document.querySelector('.section'),
+  btnNext: document.querySelector('button[data-action="next"]'),
+  btnPrev: document.querySelector('button[data-action="prev"]'),
 };
 
-const emptyStorageNotification = '<h2>Нет добавленых фильмов</h2>';
+const emptyStorageNotification =
+  '<h2 class="library-title">Нет добавленых фильмов</h2>';
 
 export const libraryFilmsRender = filmsData => {
   // added by Oleh -------------------------------------

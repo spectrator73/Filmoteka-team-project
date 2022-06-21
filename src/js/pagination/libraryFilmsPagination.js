@@ -38,6 +38,7 @@ let pageNumber = 1;
 let totalPages = 0;
 let data = null;
 let filteredData = [];
+let page = null;
 
 if (pageNumber === 1) {
   firstRender(parsedWatchedFilms);
@@ -69,6 +70,7 @@ function firstRender(filmsData) {
     hidePrevBtn(refs.btnPrev, pageNumber);
     hideNextBtn(refs.btnNext, pageNumber, totalPages);
     data = filmsData;
+    page = 'watched';
     return;
   }
   refs.navList.style.display = 'flex';
@@ -77,6 +79,7 @@ function firstRender(filmsData) {
   hidePrevBtn(refs.btnPrev, pageNumber);
   hideNextBtn(refs.btnNext, pageNumber, totalPages);
   data = filmsData;
+  page = 'watched';
 }
 
 export function categoryRender(e) {
@@ -99,7 +102,11 @@ export function categoryRender(e) {
       sessionStorage.getItem('libraryPageNumber')
     );
     !savedPageNumber ? (pageNumber = 1) : (pageNumber = savedPageNumber);
-    totalPagesCalculator(parsedWatchedFilms);
+    totalPagesCalculator(data);
+    if (pageNumber === 1) {
+      firstRender(parsedWatchedFilms);
+      return;
+    }
     filmsPagination();
   } else {
     pageNumber = 1;
@@ -108,7 +115,13 @@ export function categoryRender(e) {
     const queueFilms = localStorage.getItem('queueList');
     const parsedQueueFilms = JSON.parse(queueFilms);
     data = parsedQueueFilms;
-    firstRender(data);
+    page = 'queue';
+    let savedPageNumber = JSON.parse(
+      sessionStorage.getItem('libraryPageQueueNumber')
+    );
+    !savedPageNumber ? (pageNumber = 1) : (pageNumber = savedPageNumber);
+    totalPagesCalculator(data);
+    filmsPagination();
   }
 }
 
@@ -121,7 +134,8 @@ function totalPagesCalculator(dataArray) {
   renderController(pageNumber, totalPages);
 }
 
-export function filmsPagination() {
+function filmsPagination() {
+  console.log(pageNumber);
   filteredData = [];
   // Commented by Oleh ------------------
   // if (pageNumber === 1) {
@@ -164,9 +178,18 @@ export function filmsPagination() {
 }
 
 function pageController(e) {
+  console.log(page);
   const btnNumber = e.target.textContent;
   pageNumber = +btnNumber;
-  sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
+  if ((page = 'watched')) {
+    sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
+  }
+  if ((page = 'queue')) {
+    sessionStorage.setItem(
+      'libraryPageQueueNumber',
+      JSON.stringify(pageNumber)
+    );
+  }
   filmsPagination();
 }
 
@@ -175,7 +198,15 @@ function pageIncrement() {
     return;
   }
   pageNumber += 1;
-  sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
+  if ((page = 'watched')) {
+    sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
+  }
+  if ((page = 'queue')) {
+    sessionStorage.setItem(
+      'libraryPageQueueNumber',
+      JSON.stringify(pageNumber)
+    );
+  }
   filmsPagination();
 }
 
@@ -184,6 +215,14 @@ function pageDecrement() {
     return;
   }
   pageNumber -= 1;
-  sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
+  if ((page = 'watched')) {
+    sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
+  }
+  if ((page = 'queue')) {
+    sessionStorage.setItem(
+      'libraryPageQueueNumber',
+      JSON.stringify(pageNumber)
+    );
+  }
   filmsPagination();
 }
