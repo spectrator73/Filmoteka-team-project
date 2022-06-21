@@ -10,13 +10,13 @@
             <nav class="nav">
                 <ul class="nav__list">
                     <li class="nav__item"><a href="index.html" class="nav__link nav__link--default">HOME</a></li>
-                    <li class="nav__item"><a href="./library.html" class="nav__link">MY LIBRARY</a></li>
+                    <li class="nav__item"><a href="./library.html" class="nav__link" js-mylib style="visibility: hidden;">MY LIBRARY</a></li>
                 </ul>
             </nav>
             <div class="auth auth__container">
                 <p class="auth__greeting">Hi,<span class="auth__username"></span></p>
                 <div js-auth class="">
-                    <button class="auth__signIn" js-signin>Sign in</button><span>or,</span>
+                    <button class="auth__signIn" js-signin>Sign in</button><span>or</span>
                     <button class="auth__signUp" js-signup>Register</button>
                 </div>
                 <button type="button" class="auth__signOut visually-hidden" js-signout>
