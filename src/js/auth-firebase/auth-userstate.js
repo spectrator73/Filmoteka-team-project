@@ -3,6 +3,9 @@ import { LocStorage } from './auth-locstorage';
 import { openModal } from './auth-modal';
 import { signOutOfFirebase } from './firebase';
 
+import { getDatafromFirebase } from '../auth-firebase/firebase-db';
+import { LocStorageMovies } from '../auth-firebase/locstr-movies';
+
 export function checkUserAuthState() {
   const userData = LocStorage.getItem();
 
@@ -18,6 +21,7 @@ export function checkUserAuthState() {
     authRefs.btnSignOut.classList.remove('visually-hidden');
     authRefs.btnSignOut.addEventListener('click', onBtnSignOutClick);
     authRefs.authLine.removeEventListener('click', onAuthLineClick);
+    getDatafromFirebase();
   }
 }
 
@@ -34,4 +38,13 @@ function onBtnSignOutClick() {
   signOutOfFirebase();
   LocStorage.removeItem();
   checkUserAuthState();
+  LocStorageMovies.clearMoviesLists();
+}
+
+export function checkAuthUser() {
+  const userData = LocStorage.getItem();
+  if (!userData || !userData.name) {
+    return null;
+  }
+  return true;
 }

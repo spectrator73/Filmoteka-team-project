@@ -6,7 +6,11 @@ import { onBtnModalClose } from '../modal/modal-close.js';
 import { onEscapeModalClose } from '../modal/modal-close.js';
 import { renderModal } from '../modal/renderModalHome';
 import { addFilmsToLocal } from '../local-storage/addDataToLocalStorage';
-import { darkModalTheme } from "../modal/modal-dark.js";
+import { darkModalTheme } from '../modal/modal-dark.js';
+import { checkAuthUser } from '../auth-firebase/auth-userstate';
+import { onAddBtn } from '../auth-firebase/auth-main';
+import { manageBtnsState } from '../auth-firebase/modal-btns-state';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 let movieId = '';
 
@@ -16,7 +20,7 @@ const btnClose = document.querySelector('.js-modal-btn');
 const cardEl = document.querySelector('.gallery');
 cardEl.addEventListener('click', onClickCard);
 const body = document.querySelector('body');
-const headerEl = document.querySelector('.header__library')
+const headerEl = document.querySelector('.header__library');
 
 //object from localStorage
 let localStorageFilmCard = {
@@ -36,17 +40,17 @@ export async function onClickCard(e) {
   if (!headerEl) {
     return;
   }
-    if (
-      e.target.className !== 'gallery__item' &&
-      e.target.className !== 'gallery__image' &&
-      e.target.className !== 'gallery__title' &&
-      e.target.className !== 'gallery__genres' &&
-      e.target.className !== 'gallery__date' &&
-      e.target.className !== 'gallery__vote'
-    ) {
-      return;
-    }
-  
+  if (
+    e.target.className !== 'gallery__item' &&
+    e.target.className !== 'gallery__image' &&
+    e.target.className !== 'gallery__title' &&
+    e.target.className !== 'gallery__genres' &&
+    e.target.className !== 'gallery__date' &&
+    e.target.className !== 'gallery__vote'
+  ) {
+    return;
+  }
+
   body.style.overflow = 'hidden';
   backDrop.classList.remove('visually-hidden');
 
@@ -65,7 +69,7 @@ export async function onClickCard(e) {
 
   modalContainer.insertAdjacentHTML('afterbegin', cardModal);
   darkModalTheme();
-  
+
   localStorageFilmCard.id = movieId;
   localStorageFilmCard.poster_path = `https://image.tmdb.org/t/p/original${filmsData.poster_path}`;
   localStorageFilmCard.original_title = filmsData.original_title;
@@ -84,24 +88,44 @@ export async function onClickCard(e) {
   document.addEventListener('keydown', onEscapeModalClose);
   backDrop.addEventListener('click', onBackDropModalClose);
   btnList.addEventListener('click', onAddLibraryFilm);
+  manageBtnsState(movieId);
 }
 
-async function onAddLibraryFilm(e) {
-  const film = await localStorageFilmCard;
+// async function onAddLibraryFilm(e) {
+//   const film = await localStorageFilmCard;
+//   if (e.target.nodeName !== 'BUTTON') {
+//     return;
+//   }
+//   if (e.target.dataset.action === 'add-to-watched') {
+//     const localKey = 'watchedFilms';
+//     addFilmsToLocal(film, localKey);
+//   } else {
+//     const localKey = 'queueFilms';
+//     addFilmsToLocal(film, localKey);
+//   }
+// }
+
+// ------Modified version onAddLibraryFilm by Oleh------
+export async function onAddLibraryFilm(e) {
+  const isUserAuthorised = checkAuthUser();
+  if (!isUserAuthorised) {
+    Notify.failure(
+      '"You are not authorized. Please sign in to your account or register."'
+    );
+    return;
+  }
+
+  const movieDetails = await localStorageFilmCard;
+
   if (e.target.nodeName !== 'BUTTON') {
     return;
   }
-  if (e.target.dataset.action === 'add-to-watched') {
-    const localKey = 'watchedFilms';
-    addFilmsToLocal(film, localKey);
-  } else {
-    const localKey = 'queueFilms';
-    addFilmsToLocal(film, localKey);
-  }
+
+  onAddBtn(e, movieDetails);
 }
 
 const YOUTUBE_URL = 'https://www.youtube.com/embed/';
-const apiKey = "2ddded2d287329b6efbf335a6f8f3bd4";
+const apiKey = '2ddded2d287329b6efbf335a6f8f3bd4';
 
 async function onClick() {
   const btnTrailer = document.querySelector('.trailerClick');
@@ -113,23 +137,25 @@ async function onClick() {
     return;
   }
   const videoId = localStorageFilmCard.id;
-  await fetch(`https://api.themoviedb.org/3/movie/${videoId}/videos?api_key=${apiKey}`)
-  .then(response => response.json())
-  .then(data => {
-    let key = ''
-    // console.log(data.results);
-    data.results.forEach(item => {
-      if (item.name.includes('Official')) {
-        key = item.key
-      }
-    });
-    box.innerHTML = `<iframe
+  await fetch(
+    `https://api.themoviedb.org/3/movie/${videoId}/videos?api_key=${apiKey}`
+  )
+    .then(response => response.json())
+    .then(data => {
+      let key = '';
+      // console.log(data.results);
+      data.results.forEach(item => {
+        if (item.name.includes('Official')) {
+          key = item.key;
+        }
+      });
+      box.innerHTML = `<iframe
         src="${YOUTUBE_URL}${key}?autoplay=0&mute=0&controls=1"
        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
          allowfullscreen>
         </iframe>
       `;
-    box.classList.add('aktive');
-    btnTrailer.textContent= 'CLOSE TRAILER'
-  })
+      box.classList.add('aktive');
+      btnTrailer.textContent = 'CLOSE TRAILER';
+    });
 }

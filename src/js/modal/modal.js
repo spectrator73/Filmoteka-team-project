@@ -6,7 +6,11 @@ import { onBtnModalClose } from '../modal/modal-close.js';
 import { onEscapeModalClose } from '../modal/modal-close.js';
 import { renderModal } from '../modal/renderModalHome';
 import { addFilmsToLocal } from '../local-storage/addDataToLocalStorage';
-import { darkModalTheme } from "../modal/modal-dark.js";
+import { darkModalTheme } from '../modal/modal-dark.js';
+import { checkAuthUser } from '../auth-firebase/auth-userstate';
+import { onAddBtn } from '../auth-firebase/auth-main';
+import { manageBtnsState } from '../auth-firebase/modal-btns-state';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 let movieId = '';
 
@@ -53,7 +57,6 @@ export async function onClickCard(e) {
 
   body.style.overflow = 'hidden';
   backDrop.classList.remove('visually-hidden');
-  
 
   const id = document.querySelector('.gallery__item');
   if (e.currentTarget === sliderEl) {
@@ -71,7 +74,7 @@ export async function onClickCard(e) {
   genresModal(filmsData);
 
   let cardModal = renderModal(filmsData);
-  
+
   modalContainer.insertAdjacentHTML('afterbegin', cardModal);
   darkModalTheme();
 
@@ -93,24 +96,44 @@ export async function onClickCard(e) {
   btnClose.addEventListener('click', onBtnModalClose);
   document.addEventListener('keydown', onEscapeModalClose);
   backDrop.addEventListener('click', onBackDropModalClose);
+  manageBtnsState(movieId);
 }
 
+// export async function onAddLibraryFilm(e) {
+//   const film = await localStorageFilmCard;
+//   if (e.target.nodeName !== 'BUTTON') {
+//     return;
+//   }
+//   if (e.target.dataset.action === 'add-to-watched') {
+//     const localKey = 'watchedFilms';
+//     addFilmsToLocal(film, localKey);
+//   } else {
+//     const localKey = 'queueFilms';
+//     addFilmsToLocal(film, localKey);
+//   }
+// }
+
+// ------Modified version onAddLibraryFilm by Oleh------
 export async function onAddLibraryFilm(e) {
-  const film = await localStorageFilmCard;
+  const isUserAuthorised = checkAuthUser();
+  if (!isUserAuthorised) {
+    Notify.failure(
+      '"You are not authorized. Please sign in to your account or register."'
+    );
+    return;
+  }
+
+  const movieDetails = await localStorageFilmCard;
+
   if (e.target.nodeName !== 'BUTTON') {
     return;
   }
-  if (e.target.dataset.action === 'add-to-watched') {
-    const localKey = 'watchedFilms';
-    addFilmsToLocal(film, localKey);
-  } else {
-    const localKey = 'queueFilms';
-    addFilmsToLocal(film, localKey);
-  }
+
+  onAddBtn(e, movieDetails);
 }
 
 const YOUTUBE_URL = 'https://www.youtube.com/embed/';
-const apiKey = "2ddded2d287329b6efbf335a6f8f3bd4";
+const apiKey = '2ddded2d287329b6efbf335a6f8f3bd4';
 
 async function onClick() {
   const btnTrailer = document.querySelector('.trailerClick');
@@ -122,23 +145,25 @@ async function onClick() {
     return;
   }
   const videoId = localStorageFilmCard.id;
-  await fetch(`https://api.themoviedb.org/3/movie/${videoId}/videos?api_key=${apiKey}`)
-  .then(response => response.json())
-  .then(data => {
-    let key = ''
-    // console.log(data.results);
-    data.results.forEach(item => {
-      if (item.name.includes('Official')) {
-        key = item.key
-      }
-    });
-    box.innerHTML = `<iframe
+  await fetch(
+    `https://api.themoviedb.org/3/movie/${videoId}/videos?api_key=${apiKey}`
+  )
+    .then(response => response.json())
+    .then(data => {
+      let key = '';
+      // console.log(data.results);
+      data.results.forEach(item => {
+        if (item.name.includes('Official')) {
+          key = item.key;
+        }
+      });
+      box.innerHTML = `<iframe
         src="${YOUTUBE_URL}${key}?autoplay=0&mute=0&controls=1"
        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
          allowfullscreen>
         </iframe>
       `;
-    box.classList.add('aktive');
-    btnTrailer.textContent= 'CLOSE TRAILER'
-  })
+      box.classList.add('aktive');
+      btnTrailer.textContent = 'CLOSE TRAILER';
+    });
 }
