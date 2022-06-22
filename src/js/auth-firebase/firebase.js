@@ -51,7 +51,7 @@ export function signOutOfFirebase() {
   const auth = getAuth();
   signOut(auth)
     .then(() => {
-      Notify.success('Bye, bye. We will miss you!');
+      // Notify.success('Bye, bye. We will miss you!');
       checkUserAuthState();
     })
     .catch(error => {

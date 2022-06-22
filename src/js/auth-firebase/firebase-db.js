@@ -90,7 +90,7 @@ export function createUserDtbName(currentUserData) {
 function getUserDtbName() {
   const userData = LocStorage.getItem();
   if (!userData || !userData.dbName) {
-    Notify.failure("User isn't authorized. Please Sign in or Register.");
+    Notify.failure("User isn't authorized. Please sign in or register.");
     return null;
   }
 
