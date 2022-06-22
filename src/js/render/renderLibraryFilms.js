@@ -4,6 +4,7 @@ import genresJson from '../api/genres.json';
 import galleryMarkup from '../../templates/films-card.hbs';
 
 const genresList = genresJson['genres'];
+const title = document.querySelector('h2');
 
 const refs = {
   gallery: document.querySelector('.gallery'),
@@ -30,7 +31,8 @@ export const libraryFilmsRender = filmsData => {
   }
   refs.gallery.innerHTML = '';
   if (!filmsData) {
-    refs.section.insertAdjacentHTML('afterbegin', emptyStorageNotification);
+    title.innerHTML = emptyStorageNotification;
+    // refs.section.insertAdjacentHTML('afterbegin', emptyStorageNotification);
     return;
   }
   transformDate(filmsData);
