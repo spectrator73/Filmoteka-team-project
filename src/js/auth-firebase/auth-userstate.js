@@ -44,6 +44,7 @@ function onBtnSignOutClick() {
     location.href = 'index.html';
     return;
   }
+  authRefs.myLibLink.style.visibility = 'hidden';
   checkUserAuthState();
 }
 
