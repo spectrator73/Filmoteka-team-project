@@ -16,20 +16,14 @@ const emptyStorageNotification =
   '<h2 class="library-title">Нет добавленых фильмов</h2>';
 
 export const libraryFilmsRender = filmsData => {
-  // added by Oleh -------------------------------------
-  if (!document.querySelector('.header__library')) {
-    return;
-  }
-  //  -------------------------------------------------------
   if (
-    refs.section.firstChild.textContent === 'Нет добавленых фильмов' &&
-    filmsData
+    refs.section.firstChild.textContent === 'Нет добавленых фильмов'
   ) {
     const title = document.querySelector('h2');
     title.remove();
   }
   refs.gallery.innerHTML = '';
-  if (!filmsData) {
+  if (!filmsData || filmsData.length === 0) {
     refs.section.insertAdjacentHTML('afterbegin', emptyStorageNotification);
     return;
   }

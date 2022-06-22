@@ -19,7 +19,9 @@ function removeListener() {
 
   // added by Oleh ------------------------------------------
   if (document.querySelector('.header__library')) {
-    categoryRender();
+    console.log('modal');
+    const modalClose = true;
+    categoryRender(modalClose);
   }
   // -----------------------------------------------------------
 }

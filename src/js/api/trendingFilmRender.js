@@ -9,6 +9,7 @@ const refs = {
 };
 
 export const onTrendingFilmsRender = filmsData => {
+  console.log('on-trending');
   transformDate(filmsData);
   transformGenre(filmsData, genresList);
   clearMarkup();

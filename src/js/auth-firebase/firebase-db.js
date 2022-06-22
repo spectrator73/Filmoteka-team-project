@@ -19,7 +19,7 @@ export async function getDatafromFirebase() {
     .then(response => response.json())
     .then(data => {
       if (!data) {
-        Notify.failure('Your database is EMPTY.');
+        // Notify.failure('Your database is EMPTY.');
         LocStorageMovies.clearMoviesLists();
         return;
       }
