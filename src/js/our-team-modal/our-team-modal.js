@@ -29,6 +29,13 @@ function getTeamInfo(teamId) {
 
   modalContent.show();
 
+  window.addEventListener('scroll', () => {
+    document.documentElement.style.setProperty(
+      '--scroll-y',
+      `${window.scrollY}px`
+    );
+  });
+
   window.addEventListener('keydown', closeModalByEsc);
 
   function closeModalByEsc(e) {
@@ -46,5 +53,3 @@ function getTeamInfo(teamId) {
     btnCloseRef.removeEventListener('click', closeModalbyBtn);
   }
 }
-
-
