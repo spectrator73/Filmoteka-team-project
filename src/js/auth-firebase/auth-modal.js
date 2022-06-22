@@ -82,7 +82,7 @@ async function onFormSubmit(event) {
       Notify.failure('Wrong email or password. Try again.');
       return;
     }
-    Notify.success('You are signed in');
+    // Notify.success('You are signed in');
     body.style.overflow = 'visible';
     const currentUserData = {
       name: responseSignIn.displayName,

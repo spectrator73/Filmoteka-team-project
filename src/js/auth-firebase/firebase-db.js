@@ -19,7 +19,7 @@ export async function getDatafromFirebase() {
     .then(response => response.json())
     .then(data => {
       if (!data) {
-        Notify.failure('Your database is EMPTY.');
+        // Notify.failure('Your database is EMPTY.');
         LocStorageMovies.clearMoviesLists();
         return;
       }
@@ -90,7 +90,7 @@ export function createUserDtbName(currentUserData) {
 function getUserDtbName() {
   const userData = LocStorage.getItem();
   if (!userData || !userData.dbName) {
-    Notify.failure("User isn't authorized. Please Sign in or Register.");
+    Notify.failure("User isn't authorized. Please sign in or register.");
     return null;
   }
 

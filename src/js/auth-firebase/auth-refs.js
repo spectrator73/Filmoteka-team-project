@@ -7,6 +7,7 @@ export const authRefs = {
   btnModalClose: document.querySelector('.auth-modal__btn-close'),
   form: document.querySelector('.auth-form'),
   formUserName: document.querySelector('.auth-form__username-label'),
+  myLibLink: document.querySelector('[js-mylib]'),
 };
 
 export const defaultUserData = {

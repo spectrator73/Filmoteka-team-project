@@ -21,6 +21,7 @@ export function checkUserAuthState() {
     authRefs.btnSignOut.classList.remove('visually-hidden');
     authRefs.btnSignOut.addEventListener('click', onBtnSignOutClick);
     authRefs.authLine.removeEventListener('click', onAuthLineClick);
+    authRefs.myLibLink.style.visibility = 'visible';
     getDatafromFirebase();
   }
 }
@@ -37,8 +38,13 @@ function onAuthLineClick(event) {
 function onBtnSignOutClick() {
   signOutOfFirebase();
   LocStorage.removeItem();
-  checkUserAuthState();
   LocStorageMovies.clearMoviesLists();
+  if (document.querySelector('.header__library')) {
+    location.reload();
+    location.href = 'index.html';
+    return;
+  }
+  checkUserAuthState();
 }
 
 export function checkAuthUser() {
