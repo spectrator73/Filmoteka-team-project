@@ -17,7 +17,7 @@ const refs = {
 const emptyStorageNotification = '<h2 class="library-title"></h2>';
 
 export const libraryFilmsRender = filmsData => {
-  if (refs.section.firstChild.textContent === 'Нет добавленых фильмов') {
+  if (refs.section.firstChild.textContent === '') {
     const title = document.querySelector('h2');
     title.remove();
   }
