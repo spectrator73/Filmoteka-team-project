@@ -33,7 +33,7 @@ const parsedWatchedFilms = JSON.parse(watchedFilms);
 let savedPageNumber = JSON.parse(sessionStorage.getItem('libraryPageNumber'));
 let pageNumber = 1;
 
-!savedPageNumber ? (pageNumber = 1) : (pageNumber = savedPageNumber);
+// !savedPageNumber ? (pageNumber = 1) : (pageNumber = savedPageNumber);
 
 let totalPages = 0;
 let data = null;
