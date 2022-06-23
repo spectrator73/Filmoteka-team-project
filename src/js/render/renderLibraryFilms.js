@@ -24,10 +24,7 @@ export const libraryFilmsRender = filmsData => {
   }
   refs.gallery.innerHTML = '';
   if (!filmsData || filmsData.length === 0) {
-    refs.sectionLibrary.insertAdjacentHTML(
-      'afterbegin',
-      emptyStorageNotification
-    );
+    refs.section.insertAdjacentHTML('afterbegin', emptyStorageNotification);
     return;
   }
   transformDate(filmsData);
