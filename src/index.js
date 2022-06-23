@@ -1,3 +1,4 @@
+import './js/pagination/filmsPagination';
 import './js/api/trendingFilmRender';
 import './js/api/searchFilmsByNameRender';
 import './js/back-to-top-btn/back-to-top-btn';

@@ -33,6 +33,7 @@ export function fisrtrButtonsRender(pageNumber, totalPages) {
   }
   refs.linkList.insertAdjacentHTML('beforeend', buttonsMarkup.join(''));
   document.querySelector(`#item${pageNumber}`).classList.add('active');
+  
   refs.btnNext.classList.remove('button-hidden');
   refs.btnPrev.classList.remove('button-hidden');
 }

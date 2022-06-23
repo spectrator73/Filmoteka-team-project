@@ -17,6 +17,7 @@ let totalPages = 20;
 let searchQuery = null;
 let prevSearchQuery = null;
 let trendingMovies = false;
+console.log('main');
 
 const refs = {
   linkList: document.querySelector('.pages-list'),
@@ -32,6 +33,8 @@ refs.btnPrev.addEventListener('click', pageDecrement);
 getQuery();
 
 export function getQuery(query) {
+  console.log(totalPages);
+  console.log('query');
   searchQuery = query;
   if (!searchQuery) {
     renderController(pageNumber, totalPages);
@@ -60,6 +63,8 @@ async function getTotalPages() {
 }
 
 async function trendingMoviesRender() {
+  console.log('trending');
+  console.log(totalPages);
   trendingMovies = true;
   const data = await filmsAPI.fetchTrending(pageNumber);
   onTrendingFilmsRender(data);

@@ -12,16 +12,16 @@ const refs = {
   btnNext: document.querySelector('button[data-action="next"]'),
   btnPrev: document.querySelector('button[data-action="prev"]'),
   navList: document.querySelector('.page-navigation'),
-  // added by Oleh --------------------------------------------
   btnActive: document.querySelector('.button-wrap__button--active'),
-  // -----------------------------------------------------------
 };
 
-// added by Oleh --------------------------------------------
+if (document.location.pathname === '/index.html') {
+  return
+}
+
 if (document.querySelector('.header__library')) {
   refs.btnList.addEventListener('click', categoryRender);
 }
-// -----------------------------------------------------------
 refs.linkList.addEventListener('click', pageController);
 refs.btnNext.addEventListener('click', pageIncrement);
 refs.btnPrev.addEventListener('click', pageDecrement);
@@ -38,7 +38,7 @@ let pageNumber = 1;
 let totalPages = 0;
 let data = null;
 let filteredData = [];
-let page = null;
+let pageWatched = true;
 
 if (pageNumber === 1) {
   firstRender(parsedWatchedFilms);
@@ -47,8 +47,7 @@ if (pageNumber === 1) {
 if (pageNumber > 1) {
   data = parsedWatchedFilms;
   totalPagesCalculator(parsedWatchedFilms);
-  filmsPagination();
-  console.log(data);
+  libraryPagination();
 }
 
 function firstRender(filmsData) {
@@ -70,7 +69,6 @@ function firstRender(filmsData) {
     hidePrevBtn(refs.btnPrev, pageNumber);
     hideNextBtn(refs.btnNext, pageNumber, totalPages);
     data = filmsData;
-    page = 'watched';
     return;
   }
   refs.navList.style.display = 'flex';
@@ -79,118 +77,129 @@ function firstRender(filmsData) {
   hidePrevBtn(refs.btnPrev, pageNumber);
   hideNextBtn(refs.btnNext, pageNumber, totalPages);
   data = filmsData;
-  page = 'watched';
 }
 
-export function categoryRender(e) {
-  // if (check || e.target.dataset.category === 'watched')  // commented by Oleh ------
+export function categoryRender(closedModal) {
   if (
-    refs.btnActive.classList.contains('button-wrap__button--active') && // added by Oleh ------
-    refs.btnActive.hasAttribute('data-category', 'watched') // added by Oleh ------
+    refs.btnActive.classList.contains('button-wrap__button--active') && 
+    refs.btnActive.hasAttribute('data-category', 'watched') 
   ) {
-    // const watchedFilms = localStorage.getItem('watchedFilms');
+    pageWatched = true;
     const watchedFilms = localStorage.getItem('watchedList');
     const parsedWatchedFilms = JSON.parse(watchedFilms);
     data = parsedWatchedFilms;
-    // added by Oleh -------------
-    if (!data) {
-      firstRender(data);
-      return;
-    }
-    // --------------------------
     let savedPageNumber = JSON.parse(
       sessionStorage.getItem('libraryPageNumber')
     );
+    let savedTotalPages = JSON.parse(
+      sessionStorage.getItem('totalPagesWatched')
+    );
     !savedPageNumber ? (pageNumber = 1) : (pageNumber = savedPageNumber);
-    totalPagesCalculator(data);
-    if (pageNumber === 1) {
-      firstRender(parsedWatchedFilms);
-      return;
-    }
-    filmsPagination();
+    totalPagesCalculator(data, closedModal, savedTotalPages);
+    libraryPagination();
   } else {
-    pageNumber = 1;
-    // sessionStorage.removeItem('libraryPageNumber');
-    // const queueFilms = localStorage.getItem('queueFilms');
+    pageWatched = false;
     const queueFilms = localStorage.getItem('queueList');
     const parsedQueueFilms = JSON.parse(queueFilms);
     data = parsedQueueFilms;
-    page = 'queue';
     let savedPageNumber = JSON.parse(
       sessionStorage.getItem('libraryPageQueueNumber')
     );
+    let savedTotalPages = JSON.parse(
+      sessionStorage.getItem('totalPagesQueue')
+    );
     !savedPageNumber ? (pageNumber = 1) : (pageNumber = savedPageNumber);
-    totalPagesCalculator(data);
-    filmsPagination();
+    totalPagesCalculator(data, closedModal, savedTotalPages);
+    libraryPagination();
   }
 }
 
-function totalPagesCalculator(dataArray) {
-  if (dataArray === null) {
+function totalPagesCalculator(dataArray, closedModal, savedTotalPages) {
+  if (!dataArray || dataArray.length === 0) {
+    refs.navList.style.display = 'none';
     return;
   }
-
   totalPages = Math.ceil(dataArray.length / 20);
+  if (closedModal && savedTotalPages > totalPages) {
+    totalPages = savedTotalPages;
+    return
+  }
   renderController(pageNumber, totalPages);
+  if (refs.navList.style.display = 'none') {
+    refs.navList.style.display = 'flex'
+  }
 }
 
-function filmsPagination() {
-  console.log(pageNumber);
+function libraryPagination() {
   filteredData = [];
-  // Commented by Oleh ------------------
-  // if (pageNumber === 1) {
-  //   for (let i = 0; i < 20; i++) {
-  //     filteredData.push(data[i]);
-  //   }
-  //   window.scrollTo(0, 0);
-  //   libraryFilmsRender(filteredData);
-  // }
-  // --------------------------------------
-  if (pageNumber === 1 && totalPages === 1) {
+  
+  if (!data || data.length === 0 ) {
+    libraryFilmsRender(data);
+    return
+  }
+  if (pageNumber === 1 && totalPages === pageNumber) {
     for (let i = 0; i < data.length; i++) {
       filteredData.push(data[i]);
     }
-    window.scrollTo(0, 0);
     libraryFilmsRender(filteredData);
   }
 
-  if (pageNumber > 1 && pageNumber < totalPages) {
-    const minCount = (pageNumber - 1) * 20 + 1;
+  if (pageNumber >= 1 && pageNumber < totalPages) {
+    const minCount = (pageNumber - 1) * 20;
     const maxCount = minCount + 20;
     for (let i = minCount; i < maxCount; i++) {
       filteredData.push(data[i]);
     }
-    window.scrollTo(0, 0);
     libraryFilmsRender(filteredData);
   }
 
-  if (pageNumber > 1 && pageNumber === totalPages) {
-    const minCount = (pageNumber - 1) * 20 + 1;
+  if (pageNumber > 1 && pageNumber <= totalPages) {
+    const minCount = (pageNumber - 1) * 20;
     for (let i = minCount; i < data.length; i++) {
       filteredData.push(data[i]);
     }
-    window.scrollTo(0, 0);
+    if (filteredData.length === 0) {
+        pageNumber -= 1;
+        totalPages -= 1;
+      pageNumberStorageChecking();
+      libraryPagination();
+      renderController(pageNumber, totalPages);
+      hideNextBtn(refs.btnNext, pageNumber, totalPages);
+      hidePrevBtn(refs.btnPrev, pageNumber);
+      return
+    }
     libraryFilmsRender(filteredData);
   }
   renderController(pageNumber, totalPages);
   hideNextBtn(refs.btnNext, pageNumber, totalPages);
   hidePrevBtn(refs.btnPrev, pageNumber);
+  libraryFilmsRender(filteredData);
+  if (filteredData.length === 0) {
+    libraryFilmsRender(data);
+  }
+}
+
+function pageNumberStorageChecking() {
+  if (!pageWatched) {
+        sessionStorage.setItem(
+      'libraryPageQueueNumber',
+          JSON.stringify(pageNumber));
+      sessionStorage.setItem(
+      'totalPagesQueue',
+          JSON.stringify(totalPages));
+  }
+  else {
+    sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
+    sessionStorage.setItem('totalPagesWatched',JSON.stringify(totalPages));
+  }
 }
 
 function pageController(e) {
-  console.log(page);
   const btnNumber = e.target.textContent;
   pageNumber = +btnNumber;
-  if ((page = 'watched')) {
-    sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
-  }
-  if ((page = 'queue')) {
-    sessionStorage.setItem(
-      'libraryPageQueueNumber',
-      JSON.stringify(pageNumber)
-    );
-  }
-  filmsPagination();
+  pageNumberStorageChecking();
+  libraryPagination();
+  window.scrollTo(0, 0);
 }
 
 function pageIncrement() {
@@ -198,16 +207,9 @@ function pageIncrement() {
     return;
   }
   pageNumber += 1;
-  if ((page = 'watched')) {
-    sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
-  }
-  if ((page = 'queue')) {
-    sessionStorage.setItem(
-      'libraryPageQueueNumber',
-      JSON.stringify(pageNumber)
-    );
-  }
-  filmsPagination();
+  pageNumberStorageChecking();
+  libraryPagination();
+  window.scrollTo(0, 0);
 }
 
 function pageDecrement() {
@@ -215,14 +217,7 @@ function pageDecrement() {
     return;
   }
   pageNumber -= 1;
-  if ((page = 'watched')) {
-    sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
-  }
-  if ((page = 'queue')) {
-    sessionStorage.setItem(
-      'libraryPageQueueNumber',
-      JSON.stringify(pageNumber)
-    );
-  }
-  filmsPagination();
+  pageNumberStorageChecking();
+  libraryPagination();
+  window.scrollTo(0, 0);
 }
