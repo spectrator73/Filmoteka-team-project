@@ -14,8 +14,7 @@ const refs = {
   btnPrev: document.querySelector('button[data-action="prev"]'),
 };
 
-const emptyStorageNotification =
-  '<h2 class="library-title">Нет добавленых фильмов</h2>';
+const emptyStorageNotification = '<h2 class="library-title"></h2>';
 
 export const libraryFilmsRender = filmsData => {
   if (refs.section.firstChild.textContent === 'Нет добавленых фильмов') {
