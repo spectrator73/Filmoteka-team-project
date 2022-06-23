@@ -4,7 +4,7 @@ import {
   hidePrevBtn,
 } from '../render/renderPageLinks';
 import { libraryFilmsRender } from '../render/renderLibraryFilms';
-
+// fix;
 const refs = {
   section: document.querySelector('.section'),
   btnList: document.querySelector('.library__button-wrap'),
