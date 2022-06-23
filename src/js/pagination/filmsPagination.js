@@ -72,7 +72,7 @@ async function trendingMoviesRender() {
 
 async function fetchController() {
   if (!searchQuery) {
-    trendingMoviesPage = pageNumber;
+    let trendingMoviesPage = pageNumber;
     trendingMoviesRender();
   } else {
     try {
