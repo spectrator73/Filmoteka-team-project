@@ -1,7 +1,7 @@
 import teamTemplate from '../../templates/team.hbs';
 import team from '../api/team.json';
 import * as basicLightbox from 'basiclightbox';
-import 'basicLightbox/src/styles/main.scss';
+import '~node_modules/basicLightbox/src/styles/main.scss';
 import showConfetti from './confetti';
 import Loading from '../api/loader';
 
