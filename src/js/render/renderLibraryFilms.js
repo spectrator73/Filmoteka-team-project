@@ -8,7 +8,7 @@ const title = document.querySelector('h2');
 
 const refs = {
   gallery: document.querySelector('.gallery'),
-  section: document.querySelector('.section'),
+  section: document.querySelector('.section-library'),
   btnNext: document.querySelector('button[data-action="next"]'),
   btnPrev: document.querySelector('button[data-action="prev"]'),
 };
@@ -17,9 +17,7 @@ const emptyStorageNotification =
   '<h2 class="library-title">Нет добавленых фильмов</h2>';
 
 export const libraryFilmsRender = filmsData => {
-  if (
-    refs.section.firstChild.textContent === 'Нет добавленых фильмов'
-  ) {
+  if (refs.section.firstChild.textContent === 'Нет добавленых фильмов') {
     const title = document.querySelector('h2');
     title.remove();
   }
