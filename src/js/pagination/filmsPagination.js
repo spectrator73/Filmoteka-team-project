@@ -41,7 +41,7 @@ export function getQuery(query) {
     trendingMoviesRender();
   } else {
     pageNumber = 1;
-    // getTotalPages();
+    getTotalPages();
   }
   hidePrevBtn(refs.btnPrev, pageNumber);
 }
