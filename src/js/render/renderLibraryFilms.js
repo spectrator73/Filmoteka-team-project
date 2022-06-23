@@ -8,7 +8,8 @@ const title = document.querySelector('h2');
 
 const refs = {
   gallery: document.querySelector('.gallery'),
-  section: document.querySelector('.section-library'),
+  section: document.querySelector('.section'),
+  sectionLibrary: document.querySelector('.section-library'),
   btnNext: document.querySelector('button[data-action="next"]'),
   btnPrev: document.querySelector('button[data-action="prev"]'),
 };
@@ -23,7 +24,10 @@ export const libraryFilmsRender = filmsData => {
   }
   refs.gallery.innerHTML = '';
   if (!filmsData || filmsData.length === 0) {
-    refs.section.insertAdjacentHTML('afterbegin', emptyStorageNotification);
+    refs.sectionLibrary.insertAdjacentHTML(
+      'afterbegin',
+      emptyStorageNotification
+    );
     return;
   }
   transformDate(filmsData);
