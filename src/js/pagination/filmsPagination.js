@@ -8,10 +8,10 @@ import { onTrendingFilmsRender } from '../api/trendingFilmRender';
 import { renderMarkup } from '../api/searchFilmsByNameRender';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-let savedPageNumber = JSON.parse(sessionStorage.getItem('mainPageNumber'));
+// let savedPageNumber = JSON.parse(sessionStorage.getItem('mainPageNumber'));
 let pageNumber = 1;
 
-!savedPageNumber ? (pageNumber = 1) : (pageNumber = savedPageNumber);
+// !savedPageNumber ? (pageNumber = 1) : (pageNumber = savedPageNumber);
 
 let totalPages = 20;
 let searchQuery = null;
