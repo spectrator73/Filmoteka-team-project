@@ -39,9 +39,9 @@
   @include mq(mobile-only) {
     width: 55vw;
     justify-content: space-between;
-    }
+  }
 
-  &>button {
+  & > button {
     width: 40px;
     height: 40px;
     border: none;
@@ -51,9 +51,9 @@
     stroke: rgb(0, 0, 0);
 
     @include mq(mobile-only) {
-        width: 20vw;
-        height: 10vh;
-      }
+      width: 20vw;
+      height: 10vh;
+    }
   }
 
   & span {
@@ -76,9 +76,9 @@
   fill-opacity: 0;
   stroke: inherit;
   @include mq(mobile-only) {
-      width: 10vw;
-      height: 5vh;
-    }
+    width: 10vw;
+    height: 5vh;
+  }
 }
 
 .page-navigation-button__icon--rotate {
@@ -93,7 +93,7 @@
     display: none;
   }
 
-  &>li {
+  & > li {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,7 +110,7 @@
     @include font-size(12, 16, normal);
   }
 
-  &>li.active {
+  & > li.active {
     background-color: var(--accent-color);
     color: rgb(255, 255, 255);
   }

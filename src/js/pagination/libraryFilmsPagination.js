@@ -16,7 +16,7 @@ const refs = {
 };
 
 if (document.location.pathname === '/index.html') {
-  return
+  return;
 }
 
 if (document.querySelector('.header__library')) {
@@ -51,8 +51,12 @@ if (pageNumber > 1) {
 }
 
 function firstRender(filmsData) {
-  if (!filmsData) {
-    refs.navList.style.display = 'none';
+  if (!filmsData || filmsData.length === 0) {
+    if (document.location.pathname !== '/library.html') {
+      refs.navList.style.display = 'flex';
+    } else {
+      refs.navList.style.display = 'none';
+    }
     hidePrevBtn(refs.btnPrev, pageNumber);
     hideNextBtn(refs.btnNext, pageNumber, totalPages);
     libraryFilmsRender(filmsData);
@@ -81,8 +85,8 @@ function firstRender(filmsData) {
 
 export function categoryRender(closedModal) {
   if (
-    refs.btnActive.classList.contains('button-wrap__button--active') && 
-    refs.btnActive.hasAttribute('data-category', 'watched') 
+    refs.btnActive.classList.contains('button-wrap__button--active') &&
+    refs.btnActive.hasAttribute('data-category', 'watched')
   ) {
     pageWatched = true;
     const watchedFilms = localStorage.getItem('watchedList');
@@ -105,9 +109,7 @@ export function categoryRender(closedModal) {
     let savedPageNumber = JSON.parse(
       sessionStorage.getItem('libraryPageQueueNumber')
     );
-    let savedTotalPages = JSON.parse(
-      sessionStorage.getItem('totalPagesQueue')
-    );
+    let savedTotalPages = JSON.parse(sessionStorage.getItem('totalPagesQueue'));
     !savedPageNumber ? (pageNumber = 1) : (pageNumber = savedPageNumber);
     totalPagesCalculator(data, closedModal, savedTotalPages);
     libraryPagination();
@@ -122,20 +124,20 @@ function totalPagesCalculator(dataArray, closedModal, savedTotalPages) {
   totalPages = Math.ceil(dataArray.length / 20);
   if (closedModal && savedTotalPages > totalPages) {
     totalPages = savedTotalPages;
-    return
+    return;
   }
   renderController(pageNumber, totalPages);
-  if (refs.navList.style.display = 'none') {
-    refs.navList.style.display = 'flex'
+  if ((refs.navList.style.display = 'none')) {
+    refs.navList.style.display = 'flex';
   }
 }
 
 function libraryPagination() {
   filteredData = [];
-  
-  if (!data || data.length === 0 ) {
+
+  if (!data || data.length === 0) {
     libraryFilmsRender(data);
-    return
+    return;
   }
   if (pageNumber === 1 && totalPages === pageNumber) {
     for (let i = 0; i < data.length; i++) {
@@ -159,14 +161,14 @@ function libraryPagination() {
       filteredData.push(data[i]);
     }
     if (filteredData.length === 0) {
-        pageNumber -= 1;
-        totalPages -= 1;
+      pageNumber -= 1;
+      totalPages -= 1;
       pageNumberStorageChecking();
       libraryPagination();
       renderController(pageNumber, totalPages);
       hideNextBtn(refs.btnNext, pageNumber, totalPages);
       hidePrevBtn(refs.btnPrev, pageNumber);
-      return
+      return;
     }
     libraryFilmsRender(filteredData);
   }
@@ -181,16 +183,14 @@ function libraryPagination() {
 
 function pageNumberStorageChecking() {
   if (!pageWatched) {
-        sessionStorage.setItem(
+    sessionStorage.setItem(
       'libraryPageQueueNumber',
-          JSON.stringify(pageNumber));
-      sessionStorage.setItem(
-      'totalPagesQueue',
-          JSON.stringify(totalPages));
-  }
-  else {
+      JSON.stringify(pageNumber)
+    );
+    sessionStorage.setItem('totalPagesQueue', JSON.stringify(totalPages));
+  } else {
     sessionStorage.setItem('libraryPageNumber', JSON.stringify(pageNumber));
-    sessionStorage.setItem('totalPagesWatched',JSON.stringify(totalPages));
+    sessionStorage.setItem('totalPagesWatched', JSON.stringify(totalPages));
   }
 }
 
